@@ -1,0 +1,24 @@
+{
+    "name": "zumba/vanilla-js-connect",
+    "type": "library",
+    "description": "Object oriented Vanilla Forums jsConnect implementation",
+    "keywords": [ "SSO", "Vanilla Forums", "jsConnect", "PHP" ],
+    "homepage": "https://github.com/zumba/vanilla-js-connect",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zumba Fitness, LLC"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.4.*"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Zumba\\VanillaJsConnect\\" : "./src"
+        }
+    }
+}
