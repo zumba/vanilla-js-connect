@@ -12,18 +12,18 @@ class UnsignedResponse extends Response {
 
 	public function __construct(Request $request, User $user, Config $config=null) {
 		parent::__construct($request, $user);
-		$this->name = $user->getName() || '';
-		$this->photoUrl = $user->getPhotoUrl() || '';
+		$this->name = $user->getName() ?: '';
+		$this->photoUrl = $user->getPhotoUrl() ?: '';
 		$this->signedIn = $this->isSignedIn();
 	}
 
 	/**
 	 * Sets signedin key in array if true
 	 *
-	 * @return boolean 
+	 * @return boolean
 	 */
 	private function isSignedIn() {
-		return !(empty($this->name) || empty($this->photoUrl));
+		return !(empty($this->name) ?: empty($this->photoUrl));
 	}
 
 	public function toArray() {

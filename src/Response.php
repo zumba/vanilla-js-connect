@@ -9,7 +9,7 @@ class Response {
 
 	protected $user;
 
-	protected $properties;
+	protected $properties = [];
 
 	public function __construct(Request $request, User $user = null, Config $config = null) {
 		$this->request = $request;
@@ -47,7 +47,7 @@ class Response {
 	}
 
 	public function addProperties(array $props) {
-		array_merge($this->properties, $props);
+		$this->properties = array_merge($this->properties, $props);
 	}
 	/**
 	 * Allows response to be type cast into a string when handling
