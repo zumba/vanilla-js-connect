@@ -34,13 +34,19 @@ class SSO {
 		return $this->request->getSignature() === $signature;
 	}
 
+	protected function getTime() {
+		return time();
+	}
+
 	public function getResponse() {
 		if(empty($this->request->getClientID())) {
 			return new ClientIDMissingResponse();
 		}
 		if($this->isInvalidClientID()) {
 			$clientID = $this->request->getClientID();
-			return new InvalidClientResponse();
+			$clientResponse =  new InvalidClientResponse();
+			$clientResponse->setClientID($clientID);
+			return $clientResponse;
 		}
 		if($this->isSetTimestampSignature()){
 			return new UnsignedResponse($this->user);
@@ -51,13 +57,12 @@ class SSO {
 		if(empty($this->request->getSignature())) {
 			return new MissingSignatureResponse();
 		}
-		if((time() - $this->request->getTimestamp()) > $this->config->getJsTimeout()) {
+		if(($this->getTime() - $this->request->getTimestamp()) > $this->config->getJsTimeout()) {
 			return new InvalidTimestampResponse();
 		}
 		if(!$this->isSignatureValid()) {
 			return new AccessDeniedResponse();
 		}
-
 
 		return new Response();
 	}
