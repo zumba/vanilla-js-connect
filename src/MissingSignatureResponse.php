@@ -8,7 +8,4 @@ class MissingSignatureResponse extends Response {
 	//Two spaces intentional. Copied message from original library
 	protected $message = 'Missing  signature parameter.';
 
-	public function __construct() {
-		//parent::__construct();
-	}
 }

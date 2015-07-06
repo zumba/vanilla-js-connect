@@ -17,6 +17,6 @@ class UnsignedResponse extends Response {
 	}
 
 	private function isSignedIn() {
-		return !(empty($this->name) && empty($this->photoUrl));
+		return !(empty($this->name) || empty($this->photoUrl));
 	}
 }

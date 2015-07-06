@@ -8,7 +8,5 @@ class AccessDeniedResponse extends Response {
 
 	protected $message = 'Signature invalid.';
 
-	public function __construct() {
-		//parent::__construct();
-	}
+
 }

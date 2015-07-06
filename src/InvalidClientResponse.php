@@ -6,9 +6,7 @@ class InvalidClientResponse extends Response {
 
 	private $error = 'invalid_client';
 	private $clientID;
-	private $message = "Unknown client ";
-
-	//toArray should concat the clientID
+	private $message = "Unknown client %s.";
 
 	public function setClientID($clientID) {
 		$this->clientID = $clientID;

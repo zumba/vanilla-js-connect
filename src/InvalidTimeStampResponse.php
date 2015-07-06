@@ -8,7 +8,4 @@ class InvalidTimestampResponse extends Response {
 
 	protected $message = 'The timestamp is invalid.';
 
-	public function __construct() {
-		//parent::__construct();
-	}
 }

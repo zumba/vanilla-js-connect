@@ -8,7 +8,4 @@ class InvalidOrMissingTimeStampResponse extends Response {
 
 	protected $message = 'The timestamp parameter is missing or invalid.';
 
-	public function __construct() {
-		//parent::__construct();
-	}
 }
