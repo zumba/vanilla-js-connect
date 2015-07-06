@@ -39,6 +39,7 @@ class SSO {
 	}
 
 	public function getResponse() {
+
 		if(empty($this->request->getClientID())) {
 			return new ClientIDMissingResponse();
 		}
