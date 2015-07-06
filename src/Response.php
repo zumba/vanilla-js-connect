@@ -9,6 +9,8 @@ class Response {
 
 	protected $user;
 
+	protected $properties;
+
 	public function __construct(Request $request, User $user = null, Config $config = null) {
 		$this->request = $request;
 		$this->config = $config;
@@ -43,13 +45,17 @@ class Response {
 		return $userArray;
 
 	}
+
+	public function addProperties(array $props) {
+		array_merge($this->properties, $props);
+	}
 	/**
 	 * Allows response to be type cast into a string when handling
 	 *
-	 * @return string 
+	 * @return string
 	 */
 	public function __toString() {
-		$resultArray = $this->toArray();
+		$resultArray = array_merge($this->toArray(), $this->properties);
 		$resultJSON = json_encode($resultArray);
 		$callback = $this->request->getCallback();
 		if(isset($callback)) {
