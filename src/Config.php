@@ -12,6 +12,11 @@ class Config {
 
 	protected $jsTimeout;
 
+	/**
+	 * Takes in an array with clientID, secret, and optional jsTimeout
+	 *
+	 * @param array $options
+	 */
 	public function __construct(array $options) {
 		if(empty($options)) {
 			throw new \LogicException('Config expects array of configuration options.');
@@ -29,16 +34,30 @@ class Config {
 		$this->secret = $options['secret'];
 	}
 
+	/**
+	 * Returns Client ID
+	 *
+	 * @return string
+	 */
 	public function getClientID() {
 		return $this->clientID;
 	}
 
+	/**
+	 * Returns Secret
+	 *
+	 * @return string
+	 */
 	public function getSecret() {
 		return $this->secret;
 	}
 
+	/**
+	 * Returns timeout for requests. Defaults to 1440
+	 * @return integer
+	 */
 	public function getJsTimeout() {
-		return $this->jsTimeout || static::DEFAULT_JS_TIMEOUT;
+		return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
 	}
 
 };

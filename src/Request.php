@@ -22,7 +22,7 @@ class Request {
 				$this->callback = $args['callback'];
 			}
 		}
-
+		
 		public function getClientID() {
 			return $this->client_id;
 		}

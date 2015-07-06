@@ -23,7 +23,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->disableOriginalConstructor()
 				->getMock();
 
-			$sso = new SSO($request, $config, $user);
+			$sso = new SSO($request, $user, $config);
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\Response', $sso->getResponse());
 		}
@@ -46,7 +46,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getClientID')
 				->will($this->returnValue(null));
 
-			$sso = new SSO($request, $config, $user);
+			$sso = new SSO($request, $user, $config);
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ClientIDMissingResponse', $sso->getResponse());
 
@@ -73,7 +73,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getClientID')
 				->will($this->returnValue('abc'));
 
-			$sso = new SSO($request, $config, $user);
+			$sso = new SSO($request, $user, $config);
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\InvalidClientResponse', $sso->getResponse());
 
@@ -116,7 +116,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getClientID')
 				->will($this->returnValue('abc'));
 
-			$sso = new SSO($request, $config, $user);
+			$sso = new SSO($request, $user, $config);
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\UnsignedResponse', $sso->getResponse());
 
@@ -151,7 +151,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getClientID')
 				->will($this->returnValue('abc'));
 
-			$sso = new SSO($request, $config, $user);
+			$sso = new SSO($request, $user, $config);
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\InvalidOrMissingTimeStampResponse', $sso->getResponse());
 
@@ -186,7 +186,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getClientID')
 				->will($this->returnValue('abc'));
 
-			$sso = new SSO($request, $config, $user);
+			$sso = new SSO($request, $user, $config);
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\InvalidOrMissingTimeStampResponse', $sso->getResponse());
 
@@ -221,7 +221,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getClientID')
 				->will($this->returnValue('abc'));
 
-			$sso = new SSO($request, $config, $user);
+			$sso = new SSO($request, $user, $config);
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\MissingSignatureResponse', $sso->getResponse());
 		}
@@ -261,7 +261,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->will($this->returnValue('abc'));
 
 			$sso = $this->getMockBuilder('\Zumba\VanillaJsConnect\SSO')
-				->setConstructorArgs([$request, $config, $user])
+				->setConstructorArgs([$request, $user, $config])
 				->setMethods(['getTime'])
 				->getMock();
 
@@ -309,7 +309,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->will($this->returnValue('foobar'));
 
 			$sso = $this->getMockBuilder('\Zumba\VanillaJsConnect\SSO')
-				->setConstructorArgs([$request, $config, $user])
+				->setConstructorArgs([$request, $user, $config])
 				->setMethods(['getTime'])
 				->getMock();
 

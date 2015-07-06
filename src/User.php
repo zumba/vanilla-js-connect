@@ -9,11 +9,18 @@ class User {
 	protected $photoUrl;
 
 	public function getName() {
-		return $this->name;
+		return $this->name ?: '';
 	}
 
 	public function getPhotoUrl(){
-		return $this->photoUrl;
+		return $this->photoUrl ?: '';
+	}
+
+	public function toArray() {
+		return [
+			'name' => $this->name,
+			'photourl' => $this->photoUrl
+		];
 	}
 
 

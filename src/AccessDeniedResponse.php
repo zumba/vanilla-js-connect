@@ -8,5 +8,4 @@ class AccessDeniedResponse extends Response {
 
 	protected $message = 'Signature invalid.';
 
-
 }

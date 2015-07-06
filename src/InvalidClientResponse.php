@@ -11,4 +11,11 @@ class InvalidClientResponse extends Response {
 	public function setClientID($clientID) {
 		$this->clientID = $clientID;
 	}
+	
+	protected function toArray() {
+		$message = sprintf($this->message, $this->clientID);
+		$error = $this->error;
+		return compact('error', 'message');
+	}
+
 }
