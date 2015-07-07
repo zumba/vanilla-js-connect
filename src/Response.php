@@ -34,6 +34,7 @@ class Response
 
 		/**
 		 * Sets request, config, and user objects
+		 *
 		 * @param Request $request
 		 * @param User  $user
 		 * @param Config $config
@@ -79,7 +80,7 @@ class Response
 		 * Saves an array that will be merged with the User object array
 		 *
 		 * @param array $props
-		 * @return null
+		 * @return void
 		 */
     public function addProperties(array $props)
     {

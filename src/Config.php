@@ -23,6 +23,7 @@ class Config
 
     /**
      * Timeout for session to be valid
+     *
      * @var integer
      */
     protected $jsTimeout;
@@ -59,7 +60,7 @@ class Config
     {
         return $this->clientID;
     }
-    
+
     /**
      * Returns Secret
      *
@@ -72,6 +73,7 @@ class Config
 
     /**
      * Returns timeout for requests. Defaults to 1440
+     * 
      * @return integer
      */
     public function getJsTimeout()

@@ -27,6 +27,7 @@ class UnsignedResponse extends Response
 
 		/**
 		 * Sets variables. Default is ''
+		 * 
 		 * @param Request $request
 		 * @param User    $user
 		 * @param Config  $config
