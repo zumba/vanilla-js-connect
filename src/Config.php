@@ -2,62 +2,67 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class Config {
+class Config
+{
 
-	const DEFAULT_JS_TIMEOUT = 1440;
+    const DEFAULT_JS_TIMEOUT = 1440;
 
-	protected $clientID;
+    protected $clientID;
 
-	protected $secret;
+    protected $secret;
 
-	protected $jsTimeout;
+    protected $jsTimeout;
 
-	/**
-	 * Takes in an array with clientID, secret, and optional jsTimeout
-	 *
-	 * @param array $options
-	 */
-	public function __construct(array $options) {
-		if(empty($options)) {
-			throw new \LogicException('Config expects array of configuration options.');
-		}
+    /**
+     * Takes in an array with clientID, secret, and optional jsTimeout
+     *
+     * @param array $options
+     */
+    public function __construct(array $options) 
+    {
+        if(empty($options)) {
+            throw new \LogicException('Config expects array of configuration options.');
+        }
 
-		if(!isset($options['clientID']) || !isset($options['secret'])) {
-			throw new \DomainException('Config expects clientID and secret keys.');
-		}
+        if(!isset($options['clientID']) || !isset($options['secret'])) {
+            throw new \DomainException('Config expects clientID and secret keys.');
+        }
 
-		if(isset($options['jsTimeout'])) {
-			$this->jsTimeout = $options['jsTimeout'];
-		}
+        if(isset($options['jsTimeout'])) {
+            $this->jsTimeout = $options['jsTimeout'];
+        }
 
-		$this->clientID = $options['clientID'];
-		$this->secret = $options['secret'];
-	}
+        $this->clientID = $options['clientID'];
+        $this->secret = $options['secret'];
+    }
 
-	/**
-	 * Returns Client ID
-	 *
-	 * @return string
-	 */
-	public function getClientID() {
-		return $this->clientID;
-	}
+    /**
+     * Returns Client ID
+     *
+     * @return string
+     */
+    public function getClientID() 
+    {
+        return $this->clientID;
+    }
 
-	/**
-	 * Returns Secret
-	 *
-	 * @return string
-	 */
-	public function getSecret() {
-		return $this->secret;
-	}
+    /**
+     * Returns Secret
+     *
+     * @return string
+     */
+    public function getSecret() 
+    {
+        return $this->secret;
+    }
 
-	/**
-	 * Returns timeout for requests. Defaults to 1440
-	 * @return integer
-	 */
-	public function getJsTimeout() {
-		return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
-	}
+    /**
+     * Returns timeout for requests. Defaults to 1440
+     * @return integer
+     */
+    public function getJsTimeout() 
+    {
+        return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
+    }
 
 };

@@ -2,9 +2,10 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class InvalidOrMissingTimeStampResponse extends Response {
+class InvalidOrMissingTimeStampResponse extends Response
+{
 
-	protected $error = 'invalid_request';
+    protected $error = 'invalid_request';
 
-	protected $message = 'The timestamp parameter is missing or invalid.';
+    protected $message = 'The timestamp parameter is missing or invalid.';
 }

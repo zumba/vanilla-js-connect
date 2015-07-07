@@ -2,26 +2,30 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class User {
+class User
+{
 
-	protected $name;
+    protected $name;
 
-	protected $photoUrl;
+    protected $photoUrl;
 
-	public function getName() {
-		return $this->name ?: '';
-	}
+    public function getName() 
+    {
+        return $this->name ?: '';
+    }
 
-	public function getPhotoUrl(){
-		return $this->photoUrl ?: '';
-	}
+    public function getPhotoUrl()
+    {
+        return $this->photoUrl ?: '';
+    }
 
-	public function toArray() {
-		return [
-			'name' => $this->name,
-			'photourl' => $this->photoUrl
-		];
-	}
+    public function toArray() 
+    {
+        return [
+        'name' => $this->name,
+        'photourl' => $this->photoUrl
+        ];
+    }
 
 
 }

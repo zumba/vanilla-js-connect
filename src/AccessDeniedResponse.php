@@ -2,10 +2,11 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class AccessDeniedResponse extends Response {
+class AccessDeniedResponse extends Response
+{
 
-	protected $error = 'access_denied';
+    protected $error = 'access_denied';
 
-	protected $message = 'Signature invalid.';
+    protected $message = 'Signature invalid.';
 
 }

@@ -2,10 +2,11 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class InvalidTimeStampResponse extends Response {
+class InvalidTimeStampResponse extends Response
+{
 
-	protected $error = 'invalid_request';
+    protected $error = 'invalid_request';
 
-	protected $message = 'The timestamp is invalid.';
+    protected $message = 'The timestamp is invalid.';
 
 }
