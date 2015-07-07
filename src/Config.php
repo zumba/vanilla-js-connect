@@ -80,4 +80,4 @@ class Config
     {
         return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
     }
-};
+}
