@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba8788687220aca3bf36a3f0fe89e863",
+    "hash": "f3b45e05681f2bf8e6267d4b9392fc55",
     "packages": [],
     "packages-dev": [
         {
@@ -799,42 +799,45 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.4.6",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "a99caa52ed173ee83d6721ba012614f38c1dcbb6"
+                "reference": "c1a26c729508f73560c1a4f767f60b8ab6b4a666"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/a99caa52ed173ee83d6721ba012614f38c1dcbb6",
-                "reference": "a99caa52ed173ee83d6721ba012614f38c1dcbb6",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c1a26c729508f73560c1a4f767f60b8ab6b4a666",
+                "reference": "c1a26c729508f73560c1a4f767f60b8ab6b4a666",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
                 "php": ">=5.1.2"
             },
-            "suggest": {
-                "phpunit/php-timer": "dev-master"
-            },
             "bin": [
-                "scripts/phpcs"
+                "scripts/phpcs",
+                "scripts/phpcbf"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "CodeSniffer.php",
                     "CodeSniffer/CLI.php",
                     "CodeSniffer/Exception.php",
                     "CodeSniffer/File.php",
-                    "CodeSniffer/MultiFileSniff.php",
+                    "CodeSniffer/Fixer.php",
                     "CodeSniffer/Report.php",
                     "CodeSniffer/Reporting.php",
                     "CodeSniffer/Sniff.php",
                     "CodeSniffer/Tokens.php",
                     "CodeSniffer/Reports/",
-                    "CodeSniffer/CommentParser/",
                     "CodeSniffer/Tokenizers/",
                     "CodeSniffer/DocGenerators/",
                     "CodeSniffer/Standards/AbstractPatternSniff.php",
@@ -860,13 +863,13 @@
                     "role": "lead"
                 }
             ],
-            "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
             "homepage": "http://www.squizlabs.com/php-codesniffer",
             "keywords": [
                 "phpcs",
                 "standards"
             ],
-            "time": "2013-07-25 03:49:02"
+            "time": "2015-06-24 03:16:23"
         },
         {
             "name": "symfony/yaml",
@@ -916,48 +919,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2015-06-10 15:30:22"
-        },
-        {
-            "name": "zumba/zumba-coding-standards",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zumba/zumba-coding-standards.git",
-                "reference": "5c78bdb620b82811936a33b7a1bc6bdb53429d6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zumba/zumba-coding-standards/zipball/5c78bdb620b82811936a33b7a1bc6bdb53429d6e",
-                "reference": "5c78bdb620b82811936a33b7a1bc6bdb53429d6e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.10",
-                "squizlabs/php_codesniffer": "1.4.6"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Juan Basso",
-                    "email": "juan.basso@zumba.com"
-                },
-                {
-                    "name": "Chris Saylor",
-                    "email": "christopher.saylor@zumba.com"
-                }
-            ],
-            "description": "Zumba coding standards",
-            "homepage": "http://engineering.zumba.com",
-            "keywords": [
-                "codesniffer",
-                "standards",
-                "zumba"
-            ],
-            "time": "2014-08-27 18:54:53"
         }
     ],
     "aliases": [],
@@ -966,7 +927,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4"
+        "php": ">=5.5"
     },
     "platform-dev": []
 }

@@ -4,34 +4,34 @@ namespace Zumba\VanillaJsConnect;
 
 class SSO
 {
-		/**
-		 * Request Object
-		 *
-		 * @var Request
-		 */
+    /**
+         * Request Object
+         *
+         * @var Request
+         */
     protected $request;
 
-		/**
-		 * Config Object
-		 *
-		 * @var Config
-		 */
+    /**
+         * Config Object
+         *
+         * @var Config
+         */
     protected $config;
 
-		/**
-		 * User Object
-		 *
-		 * @var User
-		 */
+    /**
+         * User Object
+         *
+         * @var User
+         */
     protected $user;
 
-		/**
-		 * Constructor
-		 *
-		 * @param Request $request
-		 * @param User    $user
-		 * @param Config  $config
-		 */
+    /**
+         * Constructor
+         *
+         * @param Request $request
+         * @param User    $user
+         * @param Config  $config
+         */
     public function __construct(Request $request, User $user, Config $config)
     {
         $this->request = $request;
@@ -53,11 +53,12 @@ class SSO
      *
      * @return boolean
      */
-    protected function isSetTimestampSignature()  {
-      $requestTimestamp = $this->request->getTimestamp();
-      $requestSignature = $this->request->getSignature();
+    protected function isSetTimestampSignature()
+    {
+        $requestTimestamp = $this->request->getTimestamp();
+        $requestSignature = $this->request->getSignature();
 
-      return !isset($requestTimestamp) && !isset($requestSignature);
+        return !isset($requestTimestamp) && !isset($requestSignature);
     }
 
     /**
@@ -73,11 +74,11 @@ class SSO
         return $this->request->getSignature() === $signature;
     }
 
-		/**
-		 * Returns current time. Used for mocking
-		 *
-		 * @return time
-		 */
+    /**
+         * Returns current time. Used for mocking
+         *
+         * @return time
+         */
     protected function getTime()
     {
         return time();
@@ -90,28 +91,28 @@ class SSO
     public function getResponse()
     {
 
-        if(empty($this->request->getClientID())) {
+        if (empty($this->request->getClientID())) {
             return new ClientIDMissingResponse($this->request);
         }
-        if($this->isInvalidClientID()) {
+        if ($this->isInvalidClientID()) {
             $clientID = $this->request->getClientID();
             $clientResponse =  new InvalidClientResponse($this->request);
             $clientResponse->setClientID($clientID);
             return $clientResponse;
         }
-        if($this->isSetTimestampSignature()) {
+        if ($this->isSetTimestampSignature()) {
             return new UnsignedResponse($this->request, $this->user);
         }
-        if(!is_numeric($this->request->getTimestamp())) {
+        if (!is_numeric($this->request->getTimestamp())) {
             return new InvalidOrMissingTimeStampResponse($this->request);
         }
-        if(empty($this->request->getSignature())) {
+        if (empty($this->request->getSignature())) {
             return new MissingSignatureResponse($this->request);
         }
-        if(($this->getTime() - $this->request->getTimestamp()) > $this->config->getJsTimeout()) {
+        if (($this->getTime() - $this->request->getTimestamp()) > $this->config->getJsTimeout()) {
             return new InvalidTimeStampResponse($this->request);
         }
-        if(!$this->isSignatureValid()) {
+        if (!$this->isSignatureValid()) {
             return new AccessDeniedResponse($this->request);
         }
         return new Response($this->request, $this->user, $this->config);

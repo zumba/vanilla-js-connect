@@ -4,41 +4,41 @@ namespace Zumba\VanillaJsConnect;
 
 class Response
 {
-		/**
-		 * Request object
-		 *
-		 * @var Request
-		 */
+    /**
+         * Request object
+         *
+         * @var Request
+         */
     protected $request;
 
-		/**
-		 * Config object
-		 *
-		 * @var Config
-		 */
+    /**
+         * Config object
+         *
+         * @var Config
+         */
     protected $config;
 
-		/**
-		 * User Object
-		 *
-		 * @var User
-		 */
+    /**
+         * User Object
+         *
+         * @var User
+         */
     protected $user;
 
-		/**
-		 * Additonal properties to be added to the user object
-		 *
-		 * @var array
-		 */
-		protected $properties = [];
+    /**
+         * Additonal properties to be added to the user object
+         *
+         * @var array
+         */
+    protected $properties = [];
 
-		/**
-		 * Sets request, config, and user objects
-		 *
-		 * @param Request $request
-		 * @param User  $user
-		 * @param Config $config
-		 */
+    /**
+         * Sets request, config, and user objects
+         *
+         * @param Request $request
+         * @param User    $user
+         * @param Config  $config
+         */
     public function __construct(Request $request, User $user = null, Config $config = null)
     {
         $this->request = $request;
@@ -53,7 +53,7 @@ class Response
      */
     protected function toArray()
     {
-        if(isset($this->error)) {
+        if (isset($this->error)) {
             return ['error' => $this->error, 'message' => $this->message];
         } else {
             return $this->signJsConnect();
@@ -76,12 +76,12 @@ class Response
 
     }
 
-		/**
-		 * Saves an array that will be merged with the User object array
-		 *
-		 * @param array $props
-		 * @return void
-		 */
+    /**
+         * Saves an array that will be merged with the User object array
+         *
+         * @param  array $props
+         * @return void
+         */
     public function addProperties(array $props)
     {
         $this->properties = array_merge($this->properties, $props);
@@ -96,12 +96,10 @@ class Response
         $resultArray = array_merge($this->toArray(), $this->properties);
         $resultJSON = json_encode($resultArray);
         $callback = $this->request->getCallback();
-        if(isset($callback)) {
+        if (isset($callback)) {
             return "$callback($resultJSON)";
         } else {
             return $resultJSON;
         }
     }
-
-
 }

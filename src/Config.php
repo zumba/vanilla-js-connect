@@ -35,15 +35,15 @@ class Config
      */
     public function __construct(array $options)
     {
-        if(empty($options)) {
+        if (empty($options)) {
             throw new \LogicException('Config expects array of configuration options.');
         }
 
-        if(!isset($options['clientID']) || !isset($options['secret'])) {
+        if (!isset($options['clientID']) || !isset($options['secret'])) {
             throw new \DomainException('Config expects clientID and secret keys.');
         }
 
-        if(isset($options['jsTimeout'])) {
+        if (isset($options['jsTimeout'])) {
             $this->jsTimeout = $options['jsTimeout'];
         }
 
@@ -73,12 +73,11 @@ class Config
 
     /**
      * Returns timeout for requests. Defaults to 1440
-     * 
+     *
      * @return integer
      */
     public function getJsTimeout()
     {
         return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
     }
-
 };
