@@ -78,7 +78,7 @@ class SSO {
 			return new MissingSignatureResponse($this->request);
 		}
 		if(($this->getTime() - $this->request->getTimestamp()) > $this->config->getJsTimeout()) {
-			return new InvalidTimestampResponse($this->request);
+			return new InvalidTimeStampResponse($this->request);
 		}
 		if(!$this->isSignatureValid()) {
 			return new AccessDeniedResponse($this->request);
