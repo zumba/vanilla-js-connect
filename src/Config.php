@@ -21,6 +21,10 @@ class Config
      */
     protected $secret;
 
+    /**
+     * Timeout for session to be valid
+     * @var integer
+     */
     protected $jsTimeout;
 
     /**
@@ -55,7 +59,7 @@ class Config
     {
         return $this->clientID;
     }
-
+    
     /**
      * Returns Secret
      *

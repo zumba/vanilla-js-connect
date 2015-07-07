@@ -30,6 +30,7 @@ class User
 
 		/**
 		 * Returns the photourl
+		 * 
 		 * @return string
 		 */
     public function getPhotoUrl()

@@ -29,6 +29,7 @@ class InvalidClientResponse extends Response
 		 * Sets the client id for toArray
 		 *
 		 * @param string $clientID
+		 * @return none
 		 */
     public function setClientID($clientID)
     {
@@ -38,7 +39,7 @@ class InvalidClientResponse extends Response
 		/**
 		 * Overrides parent toArray function to include client id
 		 *
-		 * @return array 
+		 * @return array
 		 */
     protected function toArray()
     {

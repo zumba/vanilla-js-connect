@@ -11,6 +11,11 @@ class Request
 		 */
     protected $clientID;
 
+		/**
+		 * Saves items from args array to object
+		 *
+		 * @param array $args 
+		 */
     public function __construct(array $args)
     {
         if(isset($args['client_id'])) {

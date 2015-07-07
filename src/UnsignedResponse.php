@@ -25,6 +25,12 @@ class UnsignedResponse extends Response
 		 */
     protected $signedIn;
 
+		/**
+		 * Sets variables. Default is ''
+		 * @param Request $request
+		 * @param User    $user
+		 * @param Config  $config
+		 */
     public function __construct(Request $request, User $user, Config $config=null)
     {
         parent::__construct($request, $user);
@@ -44,8 +50,7 @@ class UnsignedResponse extends Response
     }
 
 		/**
-		 * Overwrites parent method. signedin shows when false, but should not be
-		 * ncluded according to the original library
+		 * Overwrites parent. Shouldn't show signedin when false, but still does
 		 *
 		 * @return array
 		 */

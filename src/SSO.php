@@ -13,16 +13,25 @@ class SSO
 
 		/**
 		 * Config Object
+		 *
 		 * @var Config
 		 */
     protected $config;
 
 		/**
 		 * User Object
+		 *
 		 * @var User
 		 */
     protected $user;
 
+		/**
+		 * Constructor
+		 *
+		 * @param Request $request
+		 * @param User    $user
+		 * @param Config  $config
+		 */
     public function __construct(Request $request, User $user, Config $config)
     {
         $this->request = $request;
@@ -53,8 +62,7 @@ class SSO
     }
 
     /**
-     * Signature is valid if the request timestamp.config->secret hash
-     * is equal to the hash on the request object
+     * Signature is valid if the request and new hash are equal
      *
      * @return boolean
      */

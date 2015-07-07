@@ -27,10 +27,17 @@ class Response
 
 		/**
 		 * Additonal properties to be added to the user object
+		 *
 		 * @var array
 		 */
-    protected $properties = [];
+		protected $properties = [];
 
+		/**
+		 * Sets request, config, and user objects
+		 * @param Request $request
+		 * @param User  $user
+		 * @param Config $config
+		 */
     public function __construct(Request $request, User $user = null, Config $config = null)
     {
         $this->request = $request;
@@ -39,8 +46,7 @@ class Response
     }
 
     /**
-     * Translates Error or User object to an Array for JSON serialization
-     * Is overwritten by some child response classes that have custom array formats
+     * Translates Error or User object to an Array before JSON encode
      *
      * @return array
      */
@@ -71,8 +77,9 @@ class Response
 
 		/**
 		 * Saves an array that will be merged with the User object array
-		 * 
+		 *
 		 * @param array $props
+		 * @return null
 		 */
     public function addProperties(array $props)
     {
