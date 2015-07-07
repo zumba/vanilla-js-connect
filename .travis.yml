@@ -8,4 +8,4 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit --coverage-text
-  - ./vendor/bin/phpcs  src
+  - ./vendor/bin/phpcs --standard=phpcs.xml src
