@@ -53,12 +53,11 @@ class SSO
      *
      * @return boolean
      */
-    protected function isSetTimestampSignature()
-    {
-        $requestTimestamp = $this->request->getTimestamp();
-        $requestSignature = $this->request->getSignature();
+    protected function isSetTimestampSignature()  {
+      $requestTimestamp = $this->request->getTimestamp();
+      $requestSignature = $this->request->getSignature();
 
-        return !isset($requestTimestamp) && !isset($requestSignature);
+      return !isset($requestTimestamp) && !isset($requestSignature);
     }
 
     /**
