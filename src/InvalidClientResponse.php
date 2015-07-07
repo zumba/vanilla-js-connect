@@ -4,17 +4,43 @@ namespace Zumba\VanillaJsConnect;
 
 class InvalidClientResponse extends Response
 {
-
+		/**
+		 *  Holds the error type. Corresponds with the array key in toArray
+		 *
+		 *  @var string
+		 */
     private $error = 'invalid_client';
-    private $clientID;
+
+		/**
+		 * ClientID that gets passed in for over riding toArray
+		 *
+		 * @var [type]
+		 */
+		private $clientID;
+
+		/**
+		 * Error message with format code
+		 *
+		 * @var string
+		 */
     private $message = "Unknown client %s.";
 
-    public function setClientID($clientID) 
+		/**
+		 * Sets the client id for toArray
+		 *
+		 * @param string $clientID
+		 */
+    public function setClientID($clientID)
     {
         $this->clientID = $clientID;
     }
-    
-    protected function toArray() 
+
+		/**
+		 * Overrides parent toArray function to include client id
+		 *
+		 * @return array 
+		 */
+    protected function toArray()
     {
         $message = sprintf($this->message, $this->clientID);
         $error = $this->error;

@@ -4,15 +4,34 @@ namespace Zumba\VanillaJsConnect;
 
 class Response
 {
+		/**
+		 * Request object
+		 *
+		 * @var Request
+		 */
     protected $request;
 
+		/**
+		 * Config object
+		 *
+		 * @var Config
+		 */
     protected $config;
 
+		/**
+		 * User Object
+		 *
+		 * @var User
+		 */
     protected $user;
 
+		/**
+		 * Additonal properties to be added to the user object
+		 * @var array
+		 */
     protected $properties = [];
 
-    public function __construct(Request $request, User $user = null, Config $config = null) 
+    public function __construct(Request $request, User $user = null, Config $config = null)
     {
         $this->request = $request;
         $this->config = $config;
@@ -25,7 +44,7 @@ class Response
      *
      * @return array
      */
-    protected function toArray() 
+    protected function toArray()
     {
         if(isset($this->error)) {
             return ['error' => $this->error, 'message' => $this->message];
@@ -39,7 +58,7 @@ class Response
    *
    * @return array
    */
-    protected function signJsConnect() 
+    protected function signJsConnect()
     {
         $userArray = $this->user->toArray();
         $queryString = http_build_query($userArray, null, '&');
@@ -50,7 +69,12 @@ class Response
 
     }
 
-    public function addProperties(array $props) 
+		/**
+		 * Saves an array that will be merged with the User object array
+		 * 
+		 * @param array $props
+		 */
+    public function addProperties(array $props)
     {
         $this->properties = array_merge($this->properties, $props);
     }
@@ -59,7 +83,7 @@ class Response
      *
      * @return string
      */
-    public function __toString() 
+    public function __toString()
     {
         $resultArray = array_merge($this->toArray(), $this->properties);
         $resultJSON = json_encode($resultArray);

@@ -7,8 +7,18 @@ class Config
 
     const DEFAULT_JS_TIMEOUT = 1440;
 
+    /**
+     * Client ID
+     *
+     * @var string
+     */
     protected $clientID;
 
+    /**
+     * Secret used for hashing signatures
+     *
+     * @var string
+     */
     protected $secret;
 
     protected $jsTimeout;
@@ -18,7 +28,7 @@ class Config
      *
      * @param array $options
      */
-    public function __construct(array $options) 
+    public function __construct(array $options)
     {
         if(empty($options)) {
             throw new \LogicException('Config expects array of configuration options.');
@@ -41,7 +51,7 @@ class Config
      *
      * @return string
      */
-    public function getClientID() 
+    public function getClientID()
     {
         return $this->clientID;
     }
@@ -51,7 +61,7 @@ class Config
      *
      * @return string
      */
-    public function getSecret() 
+    public function getSecret()
     {
         return $this->secret;
     }
@@ -60,7 +70,7 @@ class Config
      * Returns timeout for requests. Defaults to 1440
      * @return integer
      */
-    public function getJsTimeout() 
+    public function getJsTimeout()
     {
         return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
     }

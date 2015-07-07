@@ -4,14 +4,26 @@ namespace Zumba\VanillaJsConnect;
 
 class SSO
 {
-
+		/**
+		 * Request Object
+		 *
+		 * @var Request
+		 */
     protected $request;
 
+		/**
+		 * Config Object
+		 * @var Config
+		 */
     protected $config;
 
+		/**
+		 * User Object
+		 * @var User
+		 */
     protected $user;
 
-    public function __construct(Request $request, User $user, Config $config) 
+    public function __construct(Request $request, User $user, Config $config)
     {
         $this->request = $request;
         $this->config = $config;
@@ -22,7 +34,7 @@ class SSO
      *
      * @return boolean
      */
-    protected function isInvalidClientID() 
+    protected function isInvalidClientID()
     {
         return $this->request->getClientID() !== $this->config->getClientID();
     }
@@ -32,7 +44,7 @@ class SSO
      *
      * @return boolean
      */
-    protected function isSetTimestampSignature() 
+    protected function isSetTimestampSignature()
     {
         $requestTimestamp = $this->request->getTimestamp();
         $requestSignature = $this->request->getSignature();
@@ -46,7 +58,7 @@ class SSO
      *
      * @return boolean
      */
-    protected function isSignatureValid() 
+    protected function isSignatureValid()
     {
         $timestamp = $this->request->getTimestamp();
         $secret = $this->config->getSecret();
@@ -54,7 +66,12 @@ class SSO
         return $this->request->getSignature() === $signature;
     }
 
-    protected function getTime() 
+		/**
+		 * Returns current time. Used for mocking
+		 *
+		 * @return time
+		 */
+    protected function getTime()
     {
         return time();
     }
@@ -63,7 +80,7 @@ class SSO
   *
   * @return \Zumba\VanillaJsConnect\*Response
   */
-    public function getResponse() 
+    public function getResponse()
     {
 
         if(empty($this->request->getClientID())) {

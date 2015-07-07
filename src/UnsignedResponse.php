@@ -4,14 +4,28 @@ namespace Zumba\VanillaJsConnect;
 
 class UnsignedResponse extends Response
 {
-
+		/**
+		 * Stores the usersname
+		 *
+		 * @var string
+		 */
     protected $name;
 
+		/**
+		 * Stores url to photo for user
+		 *
+		 * @var string
+		 */
     protected $photoUrl;
 
+		/**
+		 * Boolean whether the user is signed in
+		 *
+		 * @var boolean
+		 */
     protected $signedIn;
 
-    public function __construct(Request $request, User $user, Config $config=null) 
+    public function __construct(Request $request, User $user, Config $config=null)
     {
         parent::__construct($request, $user);
         $this->name = $user->getName() ?: '';
@@ -24,12 +38,18 @@ class UnsignedResponse extends Response
      *
      * @return boolean
      */
-    private function isSignedIn() 
+    private function isSignedIn()
     {
         return !(empty($this->name) ?: empty($this->photoUrl));
     }
 
-    public function toArray() 
+		/**
+		 * Overwrites parent method. signedin shows when false, but should not be
+		 * ncluded according to the original library
+		 *
+		 * @return array
+		 */
+    public function toArray()
     {
         return [
         'name' => $this->name,

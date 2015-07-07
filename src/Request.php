@@ -4,12 +4,17 @@ namespace Zumba\VanillaJsConnect;
 
 class Request
 {
-    protected $client_id;
+		/**
+		 * Holds the client ID
+		 *
+		 * @var string
+		 */
+    protected $clientID;
 
-    public function __construct(array $args) 
+    public function __construct(array $args)
     {
         if(isset($args['client_id'])) {
-            $this->client_id = $args['client_id'];
+            $this->clientID = $args['client_id'];
         }
 
         if(isset($args['timestamp'])) {
@@ -24,23 +29,43 @@ class Request
             $this->callback = $args['callback'];
         }
     }
-        
-    public function getClientID() 
+
+		/**
+		 * Gets client ID
+		 *
+		 * @return string
+		 */
+    public function getClientID()
     {
-        return $this->client_id;
+        return $this->clientID;
     }
 
-    public function getTimestamp() 
+		/**
+		 * Returns timestamp on Request
+		 *
+		 * @return integer
+		 */
+    public function getTimestamp()
     {
         return $this->timestamp;
     }
 
-    public function getSignature() 
+		/**
+		 * Returns Request signature
+		 *
+		 * @return string
+		 */
+    public function getSignature()
     {
         return $this->signature;
     }
 
-    public function getCallback() 
+		/**
+		 * Returns request callback name
+		 *
+		 * @return string
+		 */
+    public function getCallback()
     {
         return $this->callback;
     }
