@@ -2,35 +2,65 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class UnsignedResponse extends Response {
+class UnsignedResponse extends Response
+{
+    /**
+     * Stores the usersname
+     *
+     * @var string
+     */
+    protected $name;
 
-	protected $name;
+    /**
+     * Stores url to photo for user
+     *
+     * @var string
+     */
+    protected $photoUrl;
 
-	protected $photoUrl;
+    /**
+     * Boolean whether the user is signed in
+     *
+     * @var boolean
+     */
+    protected $signedIn;
 
-	protected $signedIn;
+    /**
+     * Sets variables. Default is ''
+     *
+     * @param Request $request
+     * @param User    $user
+     * @param Config  $config
+     */
+    public function __construct(Request $request, User $user, Config $config = null)
+    {
+        parent::__construct($request, $user);
+        $this->name = $user->getName() ?: '';
+        $this->photoUrl = $user->getPhotoUrl() ?: '';
+        $this->signedIn = $this->isSignedIn();
+    }
 
-	public function __construct(Request $request, User $user, Config $config=null) {
-		parent::__construct($request, $user);
-		$this->name = $user->getName() ?: '';
-		$this->photoUrl = $user->getPhotoUrl() ?: '';
-		$this->signedIn = $this->isSignedIn();
-	}
+    /**
+     * Sets signedin key in array if true
+     *
+     * @return boolean
+     */
+    private function isSignedIn()
+    {
+        return !(empty($this->name) ?: empty($this->photoUrl));
+    }
 
-	/**
-	 * Sets signedin key in array if true
-	 *
-	 * @return boolean
-	 */
-	private function isSignedIn() {
-		return !(empty($this->name) ?: empty($this->photoUrl));
-	}
-
-	public function toArray() {
-		return [
-			'name' => $this->name,
-			'photourl' => $this->photoUrl,
-			'signedin' => $this->signedIn
-		];
-	}
+    /**
+     * Overwrites parent. Shouldn't show signedin when false, but still does
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+        'name' => $this->name,
+        'photourl' => $this->photoUrl,
+        'signedin' => $this->signedIn
+        ];
+    }
 }
