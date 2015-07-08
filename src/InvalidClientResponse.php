@@ -12,9 +12,9 @@ class InvalidClientResponse extends Response
     private $error = 'invalid_client';
 
     /**
-     * ClientID that gets passed in for over riding toArray
+     * ClientID that gets passed in for overriding toArray
      *
-     * @var [type]
+     * @var string
      */
     private $clientID;
 
