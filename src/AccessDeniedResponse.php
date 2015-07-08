@@ -2,10 +2,19 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class AccessDeniedResponse extends Response {
+class AccessDeniedResponse extends Response
+{
+    /**
+     * Holds the error type. Corresponds with the array key in toArray
+     *
+     * @var string
+     */
+    protected $error = 'access_denied';
 
-	protected $error = 'access_denied';
-
-	protected $message = 'Signature invalid.';
-
+    /**
+     * Error message returned for Access Denied
+     *
+     * @var string
+     */
+    protected $message = 'Signature invalid.';
 }
