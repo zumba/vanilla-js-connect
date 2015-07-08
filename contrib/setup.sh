@@ -1,6 +1,6 @@
 #!/bin/sh
 PROJECT=`php -r "echo getcwd();"`
-CONTRIB=$PROJECT/contrib
+CONTRIB=$PROJECT/contrib/
 
 # Backup any existing pre-commit hooks
 if [ -f $PROJECT/.git/hooks/pre-commit ]
