@@ -20,5 +20,8 @@
         "psr-4" : {
             "Zumba\\VanillaJsConnect\\" : "./src"
         }
+    },
+    "scripts" : {
+      "post-install-cmd" : ["./contrib/setup.sh"]
     }
 }
