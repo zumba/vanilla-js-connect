@@ -1,6 +1,3 @@
 #!/bin/sh
-# PROJECT=`php -r "echo dirname(dirname(realpath('$0')));"`
-# $PROJECT/vendor/bin/phpcs --standard=PSR2 $PROJECT/src
-#
 
 ./vendor/bin/phpcs --standard=PSR2 ./src
