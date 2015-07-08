@@ -4,4 +4,3 @@
 #
 
 ./vendor/bin/phpcs --standard=PSR2 ./src
-echo "i ran please"
