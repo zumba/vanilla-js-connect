@@ -4,7 +4,6 @@ namespace Zumba\VanillaJsConnect;
 
 class Config
 {
-
     const DEFAULT_JS_TIMEOUT = 1440;
 
     /**
