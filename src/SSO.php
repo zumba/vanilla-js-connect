@@ -5,33 +5,33 @@ namespace Zumba\VanillaJsConnect;
 class SSO
 {
     /**
-         * Request Object
-         *
-         * @var Request
-         */
+     * Request Object
+     *
+     * @var Request
+     */
     protected $request;
 
     /**
-         * Config Object
-         *
-         * @var Config
-         */
+     * Config Object
+     *
+     * @var Config
+     */
     protected $config;
 
     /**
-         * User Object
-         *
-         * @var User
-         */
+     * User Object
+     *
+     * @var User
+     */
     protected $user;
 
     /**
-         * Constructor
-         *
-         * @param Request $request
-         * @param User    $user
-         * @param Config  $config
-         */
+     * Constructor
+     *
+     * @param Request $request
+     * @param User    $user
+     * @param Config  $config
+     */
     public function __construct(Request $request, User $user, Config $config)
     {
         $this->request = $request;
@@ -75,10 +75,10 @@ class SSO
     }
 
     /**
-         * Returns current time. Used for mocking
-         *
-         * @return time
-         */
+     * Returns current time. Used for mocking
+     *
+     * @return time
+     */
     protected function getTime()
     {
         return time();

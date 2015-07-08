@@ -5,33 +5,33 @@ namespace Zumba\VanillaJsConnect;
 class UnsignedResponse extends Response
 {
     /**
-         * Stores the usersname
-         *
-         * @var string
-         */
+     * Stores the usersname
+     *
+     * @var string
+     */
     protected $name;
 
     /**
-         * Stores url to photo for user
-         *
-         * @var string
-         */
+     * Stores url to photo for user
+     *
+     * @var string
+     */
     protected $photoUrl;
 
     /**
-         * Boolean whether the user is signed in
-         *
-         * @var boolean
-         */
+     * Boolean whether the user is signed in
+     *
+     * @var boolean
+     */
     protected $signedIn;
 
     /**
-         * Sets variables. Default is ''
-         *
-         * @param Request $request
-         * @param User    $user
-         * @param Config  $config
-         */
+     * Sets variables. Default is ''
+     *
+     * @param Request $request
+     * @param User    $user
+     * @param Config  $config
+     */
     public function __construct(Request $request, User $user, Config $config = null)
     {
         parent::__construct($request, $user);
@@ -51,10 +51,10 @@ class UnsignedResponse extends Response
     }
 
     /**
-         * Overwrites parent. Shouldn't show signedin when false, but still does
-         *
-         * @return array
-         */
+     * Overwrites parent. Shouldn't show signedin when false, but still does
+     *
+     * @return array
+     */
     public function toArray()
     {
         return [

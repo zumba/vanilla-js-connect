@@ -5,17 +5,17 @@ namespace Zumba\VanillaJsConnect;
 class Request
 {
     /**
-         * Holds the client ID
-         *
-         * @var string
-         */
+     * Holds the client ID
+     *
+     * @var string
+     */
     protected $clientID;
 
     /**
-         * Saves items from args array to object
-         *
-         * @param array $args
-         */
+     * Saves items from args array to object
+     *
+     * @param array $args
+     */
     public function __construct(array $args)
     {
         if (isset($args['client_id'])) {
@@ -36,20 +36,20 @@ class Request
     }
 
     /**
-         * Gets client ID
-         *
-         * @return string
-         */
+     * Gets client ID
+     *
+     * @return string
+     */
     public function getClientID()
     {
         return $this->clientID;
     }
 
     /**
-         * Returns timestamp on Request
-         *
-         * @return integer
-         */
+     * Returns timestamp on Request
+     *
+     * @return integer
+     */
     public function getTimestamp()
     {
         return $this->timestamp;
@@ -66,10 +66,10 @@ class Request
     }
 
     /**
-         * Returns request callback name
-         *
-         * @return string
-         */
+     * Returns request callback name
+     *
+     * @return string
+     */
     public function getCallback()
     {
         return $this->callback;
