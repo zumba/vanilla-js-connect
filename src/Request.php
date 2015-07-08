@@ -56,10 +56,10 @@ class Request
     }
 
     /**
-         * Returns Request signature
-         *
-         * @return string
-         */
+     * Returns Request signature
+     *
+     * @return string
+     */
     public function getSignature()
     {
         return $this->signature;
