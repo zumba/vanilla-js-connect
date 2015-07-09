@@ -37,21 +37,22 @@ class User
      */
     protected $email;
 
-    public function __construct(array $args) {
-      if(isset($args['name'])) {
-        $this->name = $args['name'];
-      }
+    public function __construct(array $args)
+    {
+        if (isset($args['name'])) {
+            $this->name = $args['name'];
+        }
 
-      if(isset($args['photoUrl'])) {
-        $this->photoUrl = $args['photoUrl'];
-      }
+        if (isset($args['photoUrl'])) {
+            $this->photoUrl = $args['photoUrl'];
+        }
 
-      if(isset($args['username'])) {
-        $this->username = $args['username'];
-      }
-      if(isset($args['email'])) {
-        $this->email = $args['email'];
-      }
+        if (isset($args['username'])) {
+            $this->username = $args['username'];
+        }
+        if (isset($args['email'])) {
+            $this->email = $args['email'];
+        }
     }
     public function getName()
     {
@@ -73,8 +74,9 @@ class User
     *
     * @return string
     */
-    public function getUniqueId() {
-      return $this->username ?: '';
+    public function getUniqueId()
+    {
+        return $this->username ?: '';
     }
 
     /**
@@ -82,8 +84,9 @@ class User
     *
     * @return string
     */
-    public function getEmail() {
-      return $this->email ?: '';
+    public function getEmail()
+    {
+        return $this->email ?: '';
     }
     /**
      * Overrwites parent method
