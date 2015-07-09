@@ -26,9 +26,10 @@ class User
 
     /**
     * Unique identifier
+    *
     * @var string
     */
-    protected $username;
+    protected $uniqueId;
 
     /**
      * User email
@@ -47,8 +48,8 @@ class User
             $this->photoUrl = $args['photoUrl'];
         }
 
-        if (isset($args['username'])) {
-            $this->username = $args['username'];
+        if (isset($args['uniqueId'])) {
+            $this->uniqueId = $args['uniqueId'];
         }
         if (isset($args['email'])) {
             $this->email = $args['email'];
@@ -76,7 +77,7 @@ class User
     */
     public function getUniqueId()
     {
-        return $this->username ?: '';
+        return $this->uniqueId ?: '';
     }
 
     /**
@@ -99,7 +100,7 @@ class User
         'email' => $this->email,
         'name' => $this->name,
         'photourl' => $this->photoUrl,
-        'uniqueid' => $this->username
+        'uniqueid' => $this->uniqueId
         ];
     }
 }

@@ -11,7 +11,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         'email' => 'foo@bar.baz',
         'name' => 'Foo Bar',
         'photourl' => 'imgur.com/ARST',
-        'uniqueid' => 'foobar123'
+        'uniqueId' => 'foobar123'
       ]);
 
 			$this->assertEquals('foo@bar.baz', $user->getEmail());
@@ -22,7 +22,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         'email' => 'foo@bar.baz',
         'name' => 'Foo Bar',
         'photourl' => 'imgur.com/ARST',
-        'uniqueid' => 'foobar123'
+        'uniqueId' => 'foobar123'
       ]);
 
 			$this->assertEquals('Foo Bar', $user->getName());
@@ -33,7 +33,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         'email' => 'foo@bar.baz',
         'name' => 'Foo Bar',
         'photoUrl' => 'imgur.com/ARST',
-        'username' => 'foobar123'
+        'uniqueId' => 'foobar123'
       ]);
 
 			$this->assertEquals('imgur.com/ARST', $user->getPhotoUrl());
@@ -44,7 +44,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         'email' => 'foo@bar.baz',
         'name' => 'Foo Bar',
         'photoUrl' => 'imgur.com/ARST',
-        'username' => 'foobar123'
+        'uniqueId' => 'foobar123'
       ]);
 
 			$this->assertEquals('foobar123', $user->getUniqueId());
@@ -55,7 +55,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         'email' => 'foo@bar.baz',
         'name' => 'Foo Bar',
         'photoUrl' => 'imgur.com/ARST',
-        'username' => 'foobar123'
+        'uniqueId' => 'foobar123'
       ]);
 
       $expectedArray = [
