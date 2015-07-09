@@ -23,6 +23,36 @@ class User
      *
      * @return string
      */
+
+    /**
+    * Unique identifier
+    * @var string
+    */
+    protected $username;
+
+    /**
+     * User email
+     *
+     * @var string
+     */
+    protected $email;
+
+    public function __construct(array $args) {
+      if(isset($args['name'])) {
+        $this->name = $args['name'];
+      }
+
+      if(isset($args['photoUrl'])) {
+        $this->photoUrl = $args['photoUrl'];
+      }
+
+      if(isset($args['username'])) {
+        $this->username = $args['username'];
+      }
+      if(isset($args['email'])) {
+        $this->email = $args['email'];
+      }
+    }
     public function getName()
     {
         return $this->name ?: '';
@@ -39,6 +69,23 @@ class User
     }
 
     /**
+    * Returns username if present
+    *
+    * @return string
+    */
+    public function getUniqueId() {
+      return $this->username ?: '';
+    }
+
+    /**
+    * Returns email if set
+    *
+    * @return string
+    */
+    public function getEmail() {
+      return $this->email ?: '';
+    }
+    /**
      * Overrwites parent method
      *
      * @return array
@@ -46,8 +93,10 @@ class User
     public function toArray()
     {
         return [
+        'email' => $this->email,
         'name' => $this->name,
-        'photourl' => $this->photoUrl
+        'photourl' => $this->photoUrl,
+        'uniqueid' => $this->username
         ];
     }
 }
