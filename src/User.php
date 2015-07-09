@@ -40,11 +40,11 @@ class User
 
     public function __construct(array $args)
     {
-      foreach (['name', 'photoUrl', 'uniqueId', 'email'] as $attr) {
-        if (isset($args[$attr])) {
-          $this->$attr = $args[$attr];
+        foreach (['name', 'photoUrl', 'uniqueId', 'email'] as $attr) {
+            if (isset($args[$attr])) {
+                $this->$attr = $args[$attr];
+            }
         }
-      }
     }
 
     /**
@@ -52,17 +52,19 @@ class User
      *
      * @return string
      */
-    public function getName() {
-      return $this->name;
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
      * Returns user's photoUrl
      *
-     * @return string 
+     * @return string
      */
-    public function getPhotoUrl() {
-      return $this->photoUrl;
+    public function getPhotoUrl()
+    {
+        return $this->photoUrl;
     }
     /**
      * Overrwites parent method
