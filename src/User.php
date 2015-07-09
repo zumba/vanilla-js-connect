@@ -9,14 +9,14 @@ class User
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Stores the url to users image
      *
      * @var string
      */
-    protected $photoUrl;
+    protected $photoUrl = '';
 
     /**
      * Returns the name
@@ -29,65 +29,40 @@ class User
     *
     * @var string
     */
-    protected $uniqueId;
+    protected $uniqueId = '';
 
     /**
      * User email
      *
      * @var string
      */
-    protected $email;
+    protected $email = '';
 
     public function __construct(array $args)
     {
-        if (isset($args['name'])) {
-            $this->name = $args['name'];
+      foreach (['name', 'photoUrl', 'uniqueId', 'email'] as $attr) {
+        if (isset($args[$attr])) {
+          $this->$attr = $args[$attr];
         }
-
-        if (isset($args['photoUrl'])) {
-            $this->photoUrl = $args['photoUrl'];
-        }
-
-        if (isset($args['uniqueId'])) {
-            $this->uniqueId = $args['uniqueId'];
-        }
-        if (isset($args['email'])) {
-            $this->email = $args['email'];
-        }
-    }
-    public function getName()
-    {
-        return $this->name ?: '';
+      }
     }
 
     /**
-     * Returns the photourl
+     * Returns the user's name
      *
      * @return string
      */
-    public function getPhotoUrl()
-    {
-        return $this->photoUrl ?: '';
+    public function getName() {
+      return $this->name;
     }
 
     /**
-    * Returns username if present
-    *
-    * @return string
-    */
-    public function getUniqueId()
-    {
-        return $this->uniqueId ?: '';
-    }
-
-    /**
-    * Returns email if set
-    *
-    * @return string
-    */
-    public function getEmail()
-    {
-        return $this->email ?: '';
+     * Returns user's photoUrl
+     *
+     * @return string 
+     */
+    public function getPhotoUrl() {
+      return $this->photoUrl;
     }
     /**
      * Overrwites parent method
