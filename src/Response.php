@@ -55,7 +55,7 @@ class Response
     {
         if (isset($this->error)) {
             return ['error' => $this->error, 'message' => $this->message];
-        } else if($this->user->getName() === '') {
+        } elseif ($this->user->getName() === '') {
             return $this->user->toArray();
         } else {
             return $this->signJsConnect();
