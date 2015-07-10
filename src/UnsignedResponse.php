@@ -35,8 +35,8 @@ class UnsignedResponse extends Response
     public function __construct(Request $request, User $user, Config $config = null)
     {
         parent::__construct($request, $user);
-        $this->name = $user->getName() ?: '';
-        $this->photoUrl = $user->getPhotoUrl() ?: '';
+        $this->name = $user->getName();
+        $this->photoUrl = $user->getPhotoUrl();
         $this->signedIn = $this->isSignedIn();
     }
 
@@ -57,10 +57,18 @@ class UnsignedResponse extends Response
      */
     public function toArray()
     {
-        return [
-        'name' => $this->name,
-        'photourl' => $this->photoUrl,
-        'signedin' => $this->signedIn
-        ];
+        if ($this->signedIn) {
+            return [
+            'name' => $this->name,
+            'photourl' => $this->photoUrl,
+            'signedin' => $this->signedIn
+            ];
+        } else {
+            return [
+            'name' => $this->name,
+            'photourl' => $this->photoUrl
+            ];
+        }
+
     }
 }
