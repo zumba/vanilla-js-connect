@@ -9,12 +9,12 @@ class ClientIDMissingResponse extends Response
      *
      * @var string
      */
-    private $error = 'invalid_client';
+    protected $error = 'invalid_client';
 
     /**
      * Error message
      *
      * @var string
      */
-    private $message = 'The client_id parameter is missing.';
+    protected $message = 'The client_id parameter is missing.';
 }
