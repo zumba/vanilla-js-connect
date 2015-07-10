@@ -53,7 +53,7 @@ class SSO
      *
      * @return boolean
      */
-    protected function isSetTimestampSignature()
+    protected function isUnsigned()
     {
         $requestTimestamp = $this->request->getTimestamp();
         $requestSignature = $this->request->getSignature();
@@ -100,7 +100,7 @@ class SSO
             $clientResponse->setClientID($clientID);
             return $clientResponse;
         }
-        if ($this->isSetTimestampSignature()) {
+        if ($this->isUnsigned()) {
             return new UnsignedResponse($this->request, $this->user);
         }
         if (!is_numeric($this->request->getTimestamp())) {
