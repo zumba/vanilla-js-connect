@@ -37,7 +37,7 @@ SSO does all the work of validating the Request. Responses will be created accor
 
 The response has a __toString() method allowing you to
 
-    echo $resposne;
+    echo $response;
 
 or you can store the JSON response by casting it to a string
 
