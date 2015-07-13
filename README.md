@@ -1,8 +1,8 @@
 
 # vanilla-js-connect [![Build Status](https://travis-ci.org/zumba/vanilla-js-connect.svg?branch=master)](https://travis-ci.org/zumba/vanilla-js-connect)
-Object oriented Vanilla Forums jsConnect implementation for PHP
+Object oriented Vanilla Forums jsConnect implementation for PHP [found here](https://github.com/vanilla/jsConnectPHP).
 
-### Get Started
+### Getting Started
 First, instantiate a Request, User, and Config object.  
 The Config class will throw errors if any arguments are not set, while the other classes will produce an error in the eventual response.
 
