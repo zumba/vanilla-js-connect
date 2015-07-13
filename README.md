@@ -4,7 +4,7 @@ Object oriented Vanilla Forums jsConnect implementation for PHP [found here](htt
 
 ### Getting Started
 First, instantiate a Request, User, and Config object.  
-The Config class will throw errors if any arguments are not set, while the other classes will produce an error in the eventual response.
+The Config class will throw errors if any arguments are not set. SSO will respond with an Error Response if any arguments for User or Request are missing or incorrect.
 
       //We store these in an environment file
       $config = new $Config([
