@@ -5,11 +5,33 @@ namespace Zumba\VanillaJsConnect;
 class Request
 {
     /**
-     * Holds the client ID
-     *
-     * @var string
-     */
-    protected $clientID;
+    * Identifying cliet id from Vanilla js
+    *
+    * @var integer
+    */
+    protected $client_id;
+
+    /**
+    * Timestamp of the request
+    *
+    * @var string
+    */
+    protected $timestamp;
+
+    /**
+    * Security signature
+    *
+    * @var string
+    */
+    protected $signature;
+
+    /**
+    * Callback for JSONP
+    *
+    * @var string
+    */
+    protected $callback;
+
 
     /**
      * Saves items from args array to object
@@ -18,21 +40,11 @@ class Request
      */
     public function __construct(array $args)
     {
-        if (isset($args['client_id'])) {
-            $this->clientID = $args['client_id'];
+      foreach (['client_id', 'timestamp', 'signature', 'callback'] as $attr) {
+        if (isset($args[$attr])) {
+          $this->$attr = $args[$attr];
         }
-
-        if (isset($args['timestamp'])) {
-            $this->timestamp = $args['timestamp'];
-        }
-
-        if (isset($args['signature'])) {
-            $this->signature = $args['signature'];
-        }
-
-        if (isset($args['callback'])) {
-            $this->callback = $args['callback'];
-        }
+      }
     }
 
     /**
@@ -42,7 +54,7 @@ class Request
      */
     public function getClientID()
     {
-        return $this->clientID;
+        return $this->client_id;
     }
 
     /**
@@ -72,6 +84,6 @@ class Request
      */
     public function getCallback()
     {
-        return $this->callback;
+        return $this->callback ?: '';
     }
 }
