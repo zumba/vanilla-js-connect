@@ -98,7 +98,7 @@ class Response
         $resultArray = array_merge($this->toArray(), $this->properties);
         $resultJSON = json_encode($resultArray);
         $callback = $this->request->getCallback();
-        if (isset($callback)) {
+        if (!empty($callback)) {
             return "$callback($resultJSON)";
         } else {
             return $resultJSON;
