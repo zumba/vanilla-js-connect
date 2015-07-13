@@ -56,6 +56,32 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 		]);
 
 		$errorResponse = new UnsignedResponse($request, $user);
+		$this->assertEquals($expectedResult, (string)$errorResponse);
+	}
+
+	public function testToArrayEmptyUser() {
+		$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$user = $this->getMockBuilder('\Zumba\VanillaJsConnect\User')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$user
+			->method('getName')
+			->will($this->returnValue(''));
+
+		$user
+			->method('getPhotoUrl')
+			->will($this->returnValue(''));
+
+		$expectedResult = json_encode([
+				'name' => '',
+				'photourl' => ''
+		]);
+
+		$errorResponse = new UnsignedResponse($request, $user);
 
 		$this->assertEquals($expectedResult, (string)$errorResponse);
 	}
