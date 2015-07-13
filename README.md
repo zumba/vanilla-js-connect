@@ -3,16 +3,15 @@
 Object oriented Vanilla Forums jsConnect implementation for PHP
 
 ### Get Started
-First, instantiate a Request, User, and Config object.
+First, instantiate a Request, User, and Config object.  
+The Config class will throw errors if any arguments are not set, while the other classes will produce an error in the eventual response.
 
       //We store these in an environment file
-      $configParams = [
+      $config = new $Config([
         "client_id" => "foo",
         "secret" => "bar",
         "jsTimeout" => 1440
-      ];
-
-      $config = new Config($configParams);
+      ]);
 
       $request = new Request([
           'client_id' => "Get these"
@@ -21,14 +20,12 @@ First, instantiate a Request, User, and Config object.
           'callback' => "parameters"
       ]);
 
-      $userParams = [
+      $user = new User([
         'name' => "Pull these",
         'photoUrl' => "From",
         'uniqueId' => "Your",
         'email' => "User session"
-      ];
-
-      $user = new User($userParams);
+      ]);
 
       $sso = new SSO($request, $user, $config);
 
@@ -36,8 +33,7 @@ Once you've created a SSO object, all that is left is generating the response.
 
     $response = $sso->getResponse();
 
-This returns either a Response object or one of its children Error Responses.
-
+SSO does all the work of validating the Request. Responses will be created according to the example from the [jsConnect PHP Library](https://github.com/vanilla/jsConnectPHP), and returned as a Response object.
 
 The response has a __toString() method allowing you to
 
