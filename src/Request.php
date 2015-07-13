@@ -40,11 +40,11 @@ class Request
      */
     public function __construct(array $args)
     {
-      foreach (['client_id', 'timestamp', 'signature', 'callback'] as $attr) {
-        if (isset($args[$attr])) {
-          $this->$attr = $args[$attr];
+        foreach (['client_id', 'timestamp', 'signature', 'callback'] as $attr) {
+            if (isset($args[$attr])) {
+                $this->$attr = $args[$attr];
+            }
         }
-      }
     }
 
     /**
