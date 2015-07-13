@@ -9,21 +9,21 @@ class InvalidClientResponse extends Response
      *
      *  @var string
      */
-    private $error = 'invalid_client';
+    protected $error = 'invalid_client';
 
     /**
      * ClientID that gets passed in for overriding toArray
      *
      * @var string
      */
-    private $clientID;
+    protected $clientID;
 
     /**
      * Error message with format code
      *
      * @var string
      */
-    private $message = "Unknown client %s.";
+    protected $message = "Unknown client %s.";
 
     /**
      * Sets the client id for toArray

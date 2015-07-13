@@ -9,35 +9,63 @@ class User
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Stores the url to users image
      *
      * @var string
      */
-    protected $photoUrl;
+    protected $photoUrl = '';
 
     /**
      * Returns the name
      *
      * @return string
      */
-    public function getName()
+
+    /**
+    * Unique identifier
+    *
+    * @var string
+    */
+    protected $uniqueId = '';
+
+    /**
+     * User email
+     *
+     * @var string
+     */
+    protected $email = '';
+
+    public function __construct(array $args)
     {
-        return $this->name ?: '';
+        foreach (['name', 'photoUrl', 'uniqueId', 'email'] as $attr) {
+            if (isset($args[$attr])) {
+                $this->$attr = $args[$attr];
+            }
+        }
     }
 
     /**
-     * Returns the photourl
+     * Returns the user's name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Returns user's photoUrl
      *
      * @return string
      */
     public function getPhotoUrl()
     {
-        return $this->photoUrl ?: '';
+        return $this->photoUrl;
     }
-
     /**
      * Overrwites parent method
      *
@@ -46,8 +74,10 @@ class User
     public function toArray()
     {
         return [
+        'email' => $this->email,
         'name' => $this->name,
-        'photourl' => $this->photoUrl
+        'photourl' => $this->photoUrl,
+        'uniqueid' => $this->uniqueId
         ];
     }
 }
