@@ -57,6 +57,7 @@ class UnsignedResponse extends Response
      */
     public function toArray()
     {
+
         if ($this->signedIn) {
             return [
             'name' => $this->name,
