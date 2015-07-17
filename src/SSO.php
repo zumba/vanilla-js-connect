@@ -88,11 +88,7 @@ class SSO
       $allowedRoles = $this->config->getAllowedRoles();
       $userRoles = $this->user->getRoles();
       //if one of the user roles is in the allowed
-      if(count(array_intersect($allowedRoles, $userRoles)) === 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return count(array_intersect($allowedRoles, $userRoles)) === 0 ? true : false;
     }
 
     /**
