@@ -54,7 +54,7 @@ class Config
         }
 
         if (isset($options['allowedRoles'])) {
-          $this->allowedRoles = $options['allowedRoles'];
+            $this->allowedRoles = $options['allowedRoles'];
         }
 
         $this->clientID = $options['clientID'];
@@ -91,7 +91,8 @@ class Config
         return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
     }
 
-    public function getAllowedRoles() {
-      return $this->allowedRoles ?: [];
+    public function getAllowedRoles()
+    {
+        return $this->allowedRoles ?: [];
     }
 }

@@ -79,8 +79,9 @@ class User
      *
      * @return array
      */
-    public function getRoles() {
-      return $this->roles;
+    public function getRoles()
+    {
+        return $this->roles;
     }
     /**
      * Overrwites parent method

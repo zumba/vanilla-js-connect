@@ -84,11 +84,12 @@ class SSO
         return time();
     }
 
-    protected function isAllowedUserRole() {
-      $allowedRoles = $this->config->getAllowedRoles();
-      $userRoles = $this->user->getRoles();
+    protected function isAllowedUserRole()
+    {
+        $allowedRoles = $this->config->getAllowedRoles();
+        $userRoles = $this->user->getRoles();
       //if one of the user roles is in the allowed
-      return count(array_intersect($allowedRoles, $userRoles)) === 0 ? true : false;
+        return count(array_intersect($allowedRoles, $userRoles)) > 0 ? true : false;
     }
 
     /**
@@ -123,8 +124,13 @@ class SSO
         if (!$this->isSignatureValid()) {
             return new AccessDeniedResponse($this->request);
         }
-        if(!$this->isAllowedUserRole()) {
-          return new NotAllowedUserRole($this->request, $this->user);
+        if (!$this->isAllowedUserRole()) {
+            $allowedRoles = $this->config->getAllowedRoles();
+            $userRoles = $this->user->getRoles();
+          //if one of the user roles is in the allowed
+            var_dump($allowedRoles);
+            var_dump($userRoles);
+            return new NotAllowedUserRole($this->request, $this->user);
         }
         return new Response($this->request, $this->user, $this->config);
     }

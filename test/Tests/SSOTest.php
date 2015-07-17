@@ -319,4 +319,108 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 			$this->assertInstanceOf('\Zumba\VanillaJsConnect\AccessDeniedResponse', $sso->getResponse());
 		}
+
+		public function testNotAllowedUserRole() {
+			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
+				->setMethods(['getSecret', 'getClientID'])
+				->disableOriginalConstructor()
+				->getMock();
+
+			$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$user = $this->getMockBuilder('\Zumba\VanillaJsConnect\User')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$request
+				->method('getClientID')
+				->will($this->returnValue('abc'));
+
+			$request
+				->method('getSignature')
+				->will($this->returnValue('0ad79caf88876ade6152c4eb5187c240'));
+
+			$request
+				->method('getTimestamp')
+				->will($this->returnValue(0));
+
+			$config
+				->method('getClientID')
+				->will($this->returnValue('abc'));
+
+			$config
+				->method('getSecret')
+				->will($this->returnValue('foobar'));
+
+			$user
+				->method('getRoles')
+				->will($this->returnValue(['not', 'allowed']));
+
+			$sso = $this->getMockBuilder('\Zumba\VanillaJsConnect\SSO')
+				->setConstructorArgs([$request, $user, $config])
+				->setMethods(['getTime'])
+				->getMock();
+
+			$sso
+				->method('getTime')
+				->will($this->returnValue(1));
+
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\NotAllowedUserRole', $sso->getResponse());
+		}
+
+		public function testAllowedUserRole() {
+			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
+				->setMethods(['getSecret', 'getClientID'])
+				->disableOriginalConstructor()
+				->getMock();
+
+			$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$user = $this->getMockBuilder('\Zumba\VanillaJsConnect\User')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$request
+				->method('getClientID')
+				->will($this->returnValue('abc'));
+
+			$request
+				->method('getSignature')
+				->will($this->returnValue('0ad79caf88876ade6152c4eb5187c240'));
+
+			$request
+				->method('getTimestamp')
+				->will($this->returnValue(0));
+
+			$config
+				->method('getClientID')
+				->will($this->returnValue('abc'));
+
+			$config
+				->method('getAllowedRoles')
+				->will($this->returnValue(['4', '10', 'bob', 'foo']));
+
+			$config
+				->method('getSecret')
+				->will($this->returnValue('foobar'));
+
+			$user
+				->method('getRoles')
+				->will($this->returnValue(['4', 'allowed']));
+
+			$sso = $this->getMockBuilder('\Zumba\VanillaJsConnect\SSO')
+				->setConstructorArgs([$request, $user, $config])
+				->setMethods(['getTime'])
+				->getMock();
+
+			$sso
+				->method('getTime')
+				->will($this->returnValue(1));
+
+			$this->assertNotInstanceOf('\Zumba\VanillaJsConnect\NotAllowedUserRole', $sso->getResponse());
+		}
 }
