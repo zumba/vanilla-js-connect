@@ -6,7 +6,8 @@ use \Zumba\VanillaJsConnect\SSO,
 		\Zumba\VanillaJsConnect\Config,
 		\Zumba\VanillaJsConnect\Request,
 		\Zumba\VanillaJsConnect\Response
-		\Zumba\VanillaJsConnect\User;
+		\Zumba\VanillaJsConnect\User,
+		\Zumba\VanillaJsConnect\ErrorResponse;
 
 class SSOTest extends \PHPUnit_Framework_TestCase {
 
@@ -48,7 +49,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 			$sso = new SSO($request, $user, $config);
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ClientIDMissingResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\ClientIDMissing', $sso->getResponse());
 
 		}
 
@@ -75,7 +76,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 			$sso = new SSO($request, $user, $config);
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\InvalidClientResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\InvalidClient', $sso->getResponse());
 
 		}
 
@@ -118,7 +119,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 			$sso = new SSO($request, $user, $config);
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\UnsignedResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\Unsigned', $sso->getResponse());
 
 		}
 
@@ -153,7 +154,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 			$sso = new SSO($request, $user, $config);
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\InvalidOrMissingTimeStampResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\InvalidOrMissingTimeStamp', $sso->getResponse());
 
 		}
 
@@ -188,7 +189,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 			$sso = new SSO($request, $user, $config);
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\InvalidOrMissingTimeStampResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\InvalidOrMissingTimeStamp', $sso->getResponse());
 
 		}
 
@@ -223,7 +224,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 			$sso = new SSO($request, $user, $config);
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\MissingSignatureResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\MissingSignature', $sso->getResponse());
 		}
 
 		public function testIsSignatureValid() {
@@ -270,7 +271,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getTime')
 				->will($this->returnValue(1500));
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\InvalidTimestampResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\InvalidTimestamp', $sso->getResponse());
 
 		}
 
@@ -317,6 +318,60 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getTime')
 				->will($this->returnValue(1));
 
-			$this->assertInstanceOf('\Zumba\VanillaJsConnect\AccessDeniedResponse', $sso->getResponse());
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse\AccessDenied', $sso->getResponse());
+		}
+
+		public function testHandleValidatorsPassing() {
+			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
+				->setMethods(['getSecret', 'getClientID'])
+				->disableOriginalConstructor()
+				->getMock();
+
+			$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$user = $this->getMockBuilder('\Zumba\VanillaJsConnect\User')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$request
+				->method('getClientID')
+				->will($this->returnValue('abc'));
+
+			$request
+				->method('getSignature')
+				->will($this->returnValue('0ad79caf88876ade6152c4eb5187c240'));
+
+			$request
+				->method('getTimestamp')
+				->will($this->returnValue(0));
+
+			$config
+				->method('getClientID')
+				->will($this->returnValue('abc'));
+
+			$config
+				->method('getSecret')
+				->will($this->returnValue('foobar'));
+
+			$sso = $this->getMockBuilder('\Zumba\VanillaJsConnect\SSO')
+				->setConstructorArgs([$request, $user, $config])
+				->setMethods(['getTime'])
+				->getMock();
+
+			$sso
+				->method('getTime')
+				->will($this->returnValue(1));
+
+			$validatorOne = function() {
+				$error = new ErrorResponse();
+				$error->setError = "some type";
+				$error->setMessage = "some message";
+				return $error;
+			};
+
+			$sso->addCustomValidator([$validatorOne]);
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse', $sso->getResponse());
 		}
 }

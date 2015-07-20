@@ -2,7 +2,7 @@
 
 namespace Zumba\VanillaJsConnect\ErrorResponse;
 
-class MissingSignatureResponse extends ErrorResponse
+class MissingSignature extends \Zumba\VanillaJsConnect\ErrorResponse
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray

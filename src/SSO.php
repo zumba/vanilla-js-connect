@@ -2,6 +2,8 @@
 
 namespace Zumba\VanillaJsConnect;
 
+use Zumba\VanillaJsConnect\ErrorResponse as ErrorResponse;
+
 class SSO
 {
     /**
@@ -31,7 +33,7 @@ class SSO
      *
      * @var array
      */
-    protected $validators;
+    protected $validators = [];
 
     /**
      * Constructor
@@ -92,6 +94,12 @@ class SSO
         return time();
     }
 
+
+    /**
+     * Loops through array of validator callbacks
+     *
+     * @return ErrorResponse
+     */
     protected function handleValidators() {
       foreach ($this->validators as $validateFn) {
         $response = $validateFn();
@@ -101,6 +109,9 @@ class SSO
       }
     }
 
+    public static function errorResponse() {
+      return new ErrorResponse();
+    }
 
     /**
      * Adds custom external validation functions to run in addition to the Vanilla core
@@ -108,7 +119,7 @@ class SSO
      * @param array
      */
     public function addCustomValidator($fnArray) {
-      array_merge($validators, $fnArray);
+      array_merge($this->validators, $fnArray);
     }
 
     /**
@@ -144,7 +155,11 @@ class SSO
             return new ErrorResponse\AccessDenied($this->request);
         }
 
-        $this->handleValidators();
+        $customError = $this->handleValidators();
+
+        if(isset($customReturns)) {
+          return $customReturns;
+        }
 
         return new Response($this->request, $this->user, $this->config);
     }

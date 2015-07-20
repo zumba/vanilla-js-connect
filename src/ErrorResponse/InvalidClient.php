@@ -2,7 +2,7 @@
 
 namespace Zumba\VanillaJsConnect\ErrorResponse;
 
-class InvalidClient extends ErrorResponse
+class InvalidClient extends \Zumba\VanillaJsConnect\ErrorResponse
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray

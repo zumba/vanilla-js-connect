@@ -2,7 +2,11 @@
 
 namespace Zumba\VanillaJsConnect\ErrorResponse;
 
-class UnsignedResponse extends ErrorResponse
+use Zumba\VanillaJsConnect\Request,
+    Zumba\VanillaJsConnect\User,
+    Zumba\VanillaJsConnect\Config;
+
+class Unsigned extends \Zumba\VanillaJsConnect\ErrorResponse
 {
     /**
      * Stores the usersname

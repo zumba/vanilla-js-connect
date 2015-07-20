@@ -2,7 +2,7 @@
 
 namespace Zumba\VanillaJsConnect\ErrorResponse;
 
-class InvalidOrMissingTimeStamp extends ErrorResponse
+class InvalidOrMissingTimeStamp extends \Zumba\VanillaJsConnect\ErrorResponse
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray

@@ -2,7 +2,7 @@
 
 namespace Zumba\VanillaJsConnect\ErrorResponse;
 
-class AccessDenied extends ErrorResponse
+class AccessDenied extends \Zumba\VanillaJsConnect\ErrorResponse
 {
     /**
      * Holds the error type. Corresponds with the array key in toArray
@@ -11,7 +11,7 @@ class AccessDenied extends ErrorResponse
      */
     protected $error = 'access_denied';
 
-    /**
+    /*
      * Error message returned for Access Denied
      *
      * @var string
