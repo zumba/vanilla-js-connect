@@ -101,7 +101,7 @@ class SSO
      * @return ErrorResponse
      */
     protected function handleValidators() {
-      foreach ($this->validators as $validateFn) {
+      foreach ($this->validators as $validateFn) {;
         $response = $validateFn();
         if($response instanceof ErrorResponse) {
           return $response;
@@ -116,10 +116,10 @@ class SSO
     /**
      * Adds custom external validation functions to run in addition to the Vanilla core
      *
-     * @param array
+     * @param function
      */
-    public function addCustomValidator($fnArray) {
-      array_merge($this->validators, $fnArray);
+    public function addCustomValidator($fn) {
+      $this->validators[] = $fn;
     }
 
     /**
@@ -157,8 +157,8 @@ class SSO
 
         $customError = $this->handleValidators();
 
-        if(isset($customReturns)) {
-          return $customReturns;
+        if(isset($customError)) {
+          return $customError;
         }
 
         return new Response($this->request, $this->user, $this->config);
