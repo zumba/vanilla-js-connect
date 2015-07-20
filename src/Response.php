@@ -53,10 +53,8 @@ class Response
      */
     protected function toArray()
     {
-        if (isset($this->error)) {
+        if (property_exists($this, 'error')) {
             return ['error' => $this->error, 'message' => $this->message];
-        } elseif ($this->user->getName() === '') {
-            return $this->user->toArray();
         } else {
             return $this->signJsConnect();
         }
