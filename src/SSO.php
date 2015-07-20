@@ -92,28 +92,28 @@ class SSO
     {
 
         if (empty($this->request->getClientID())) {
-            return new ClientIDMissingResponse($this->request);
+            return new ErrorResponse\ClientIDMissing($this->request);
         }
         if ($this->isInvalidClientID()) {
             $clientID = $this->request->getClientID();
-            $clientResponse =  new InvalidClientResponse($this->request);
+            $clientResponse =  new ErrorResponse\InvalidClient($this->request);
             $clientResponse->setClientID($clientID);
             return $clientResponse;
         }
         if ($this->isUnsigned()) {
-            return new UnsignedResponse($this->request, $this->user);
+            return new ErrorResponse\Unsigned($this->request, $this->user);
         }
         if (!is_numeric($this->request->getTimestamp())) {
-            return new InvalidOrMissingTimeStampResponse($this->request);
+            return new ErrorResponse\InvalidOrMissingTimeStamp($this->request);
         }
         if (empty($this->request->getSignature())) {
-            return new MissingSignatureResponse($this->request);
+            return new ErrorResponse\MissingSignature($this->request);
         }
         if (($this->getTime() - $this->request->getTimestamp()) > $this->config->getJsTimeout()) {
-            return new InvalidTimeStampResponse($this->request);
+            return new ErrorResponse\InvalidTimeStamp($this->request);
         }
         if (!$this->isSignatureValid()) {
-            return new AccessDeniedResponse($this->request);
+            return new ErrorResponse\AccessDenied($this->request);
         }
         return new Response($this->request, $this->user, $this->config);
     }
