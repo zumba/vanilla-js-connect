@@ -125,7 +125,7 @@ class SSO
     /**
     * Validates Request object and returns a response object based on the error
     *
-    * @return \Zumba\VanillaJsConnect\*Response
+    * @return \Zumba\VanillaJsConnect\Response
     */
     public function getResponse()
     {
