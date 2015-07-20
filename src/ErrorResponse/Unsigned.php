@@ -2,9 +2,9 @@
 
 namespace Zumba\VanillaJsConnect\ErrorResponse;
 
-use Zumba\VanillaJsConnect\Request,
-    Zumba\VanillaJsConnect\User,
-    Zumba\VanillaJsConnect\Config;
+use Zumba\VanillaJsConnect\Request;
+use Zumba\VanillaJsConnect\User;
+use Zumba\VanillaJsConnect\Config;
 
 class Unsigned extends \Zumba\VanillaJsConnect\ErrorResponse
 {

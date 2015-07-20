@@ -100,17 +100,20 @@ class SSO
      *
      * @return ErrorResponse
      */
-    protected function handleValidators() {
-      foreach ($this->validators as $validateFn) {;
-        $response = $validateFn();
-        if($response instanceof ErrorResponse) {
-          return $response;
+    protected function handleValidators()
+    {
+        foreach ($this->validators as $validateFn) {
+            ;
+            $response = $validateFn();
+            if ($response instanceof ErrorResponse) {
+                return $response;
+            }
         }
-      }
     }
 
-    public function createErrorResponse() {
-      return new ErrorResponse($this->request);
+    public function createErrorResponse()
+    {
+        return new ErrorResponse($this->request);
     }
 
     /**
@@ -118,8 +121,9 @@ class SSO
      *
      * @param function
      */
-    public function addCustomValidator($fn) {
-      $this->validators[] = $fn;
+    public function addCustomValidator($fn)
+    {
+        $this->validators[] = $fn;
     }
 
     /**
@@ -157,8 +161,8 @@ class SSO
 
         $customError = $this->handleValidators();
 
-        if(isset($customError)) {
-          return $customError;
+        if (isset($customError)) {
+            return $customError;
         }
 
         return new Response($this->request, $this->user, $this->config);

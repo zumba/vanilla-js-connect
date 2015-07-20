@@ -93,16 +93,16 @@ class Response
      */
     public function __toString()
     {
-      if($this instanceof ErrorResponse) {
-        return json_encode($this->toArray());
-      }
-      $resultArray = array_merge($this->toArray(), $this->properties);
-      $resultJSON = json_encode($resultArray);
-      $callback = $this->request->getCallback();
-      if (!empty($callback)) {
-          return "$callback($resultJSON)";
-      } else {
-          return $resultJSON;
-      }
+        if ($this instanceof ErrorResponse) {
+            return json_encode($this->toArray());
+        }
+        $resultArray = array_merge($this->toArray(), $this->properties);
+        $resultJSON = json_encode($resultArray);
+        $callback = $this->request->getCallback();
+        if (!empty($callback)) {
+            return "$callback($resultJSON)";
+        } else {
+            return $resultJSON;
+        }
     }
 }
