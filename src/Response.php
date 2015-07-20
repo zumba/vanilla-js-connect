@@ -53,10 +53,8 @@ class Response
      */
     protected function toArray()
     {
-        if (isset($this->error)) {
+        if ($this instanceof ErrorResponse) {
             return ['error' => $this->error, 'message' => $this->message];
-        } elseif ($this->user->getName() === '') {
-            return $this->user->toArray();
         } else {
             return $this->signJsConnect();
         }
@@ -97,7 +95,7 @@ class Response
     {
       if($this instanceof ErrorResponse) {
         return json_encode($this->toArray());
-      } 
+      }
       $resultArray = array_merge($this->toArray(), $this->properties);
       $resultJSON = json_encode($resultArray);
       $callback = $this->request->getCallback();

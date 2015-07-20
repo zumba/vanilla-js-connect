@@ -25,6 +25,14 @@ class SSO
      */
     protected $user;
 
+
+    /**
+     * Array of validation functions for the request
+     *
+     * @var array
+     */
+    protected $validators;
+
     /**
      * Constructor
      *
@@ -83,11 +91,31 @@ class SSO
     {
         return time();
     }
+
+    protected function handleValidators() {
+      foreach ($this->validators as $validateFn) {
+        $response = $validateFn();
+        if($response instanceof ErrorResponse) {
+          return $response;
+        }
+      }
+    }
+
+
     /**
-  * Validates Request object and returns a response object based on the error
-  *
-  * @return \Zumba\VanillaJsConnect\*Response
-  */
+     * Adds custom external validation functions to run in addition to the Vanilla core
+     *
+     * @param array
+     */
+    public function addCustomValidator($fnArray) {
+      array_merge($validators, $fnArray);
+    }
+
+    /**
+    * Validates Request object and returns a response object based on the error
+    *
+    * @return \Zumba\VanillaJsConnect\*Response
+    */
     public function getResponse()
     {
 
@@ -115,6 +143,9 @@ class SSO
         if (!$this->isSignatureValid()) {
             return new ErrorResponse\AccessDenied($this->request);
         }
+
+        $this->handleValidators();
+
         return new Response($this->request, $this->user, $this->config);
     }
 }
