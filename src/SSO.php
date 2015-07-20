@@ -109,8 +109,8 @@ class SSO
       }
     }
 
-    public static function errorResponse() {
-      return new ErrorResponse();
+    public static function createErrorResponse() {
+      return new ErrorResponse($this->request);
     }
 
     /**
