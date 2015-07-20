@@ -28,6 +28,13 @@ class Config
     protected $jsTimeout;
 
     /**
+     * Array of user roles allowed to access the forum
+     *
+     * @var array
+     */
+    protected $allowedRoles;
+
+    /**
      * Takes in an array with clientID, secret, and optional jsTimeout
      *
      * @param array $options
@@ -44,6 +51,10 @@ class Config
 
         if (isset($options['jsTimeout'])) {
             $this->jsTimeout = $options['jsTimeout'];
+        }
+
+        if (isset($options['allowedRoles'])) {
+            $this->allowedRoles = $options['allowedRoles'];
         }
 
         $this->clientID = $options['clientID'];
@@ -78,5 +89,10 @@ class Config
     public function getJsTimeout()
     {
         return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
+    }
+
+    public function getAllowedRoles()
+    {
+        return $this->allowedRoles ?: [];
     }
 }

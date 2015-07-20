@@ -38,9 +38,16 @@ class User
      */
     protected $email = '';
 
+    /**
+     * List of roles from Auth->User('Role.list')
+     *
+     * @var array
+     */
+    protected $roles = [];
+
     public function __construct(array $args)
     {
-        foreach (['name', 'photoUrl', 'uniqueId', 'email'] as $attr) {
+        foreach (['name', 'photoUrl', 'uniqueId', 'email', 'roles'] as $attr) {
             if (isset($args[$attr])) {
                 $this->$attr = $args[$attr];
             }
@@ -65,6 +72,16 @@ class User
     public function getPhotoUrl()
     {
         return $this->photoUrl;
+    }
+
+    /**
+     * Returns roles from  $this->Auth->User('Role.list');
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
     /**
      * Overrwites parent method

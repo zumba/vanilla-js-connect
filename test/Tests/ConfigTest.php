@@ -53,4 +53,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals(2, $config->getJsTimeout());
 		}
 
+		public function testGetAllowedRoles() {
+			$config = new Config(['clientID' => 1234, 'secret' => 'abcde', 'allowedRoles' => ['1', 'the one who knocks']]);
+
+			$this->assertEquals(['1', 'the one who knocks'], $config->getAllowedRoles());
+		}
+
 }

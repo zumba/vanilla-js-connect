@@ -83,11 +83,20 @@ class SSO
     {
         return time();
     }
+
+    protected function isAllowedUserRole()
+    {
+        $allowedRoles = $this->config->getAllowedRoles();
+        $userRoles = $this->user->getRoles();
+        //if one of the user roles is in the allowed
+        return count(array_intersect($allowedRoles, $userRoles)) > 0 ? true : false;
+    }
+
     /**
-  * Validates Request object and returns a response object based on the error
-  *
-  * @return \Zumba\VanillaJsConnect\*Response
-  */
+    * Validates Request object and returns a response object based on the error
+    *
+    * @return \Zumba\VanillaJsConnect\*Response
+    */
     public function getResponse()
     {
 
@@ -114,6 +123,9 @@ class SSO
         }
         if (!$this->isSignatureValid()) {
             return new AccessDeniedResponse($this->request);
+        }
+        if (!$this->isAllowedUserRole()) {
+            return new NotAllowedUserRole($this->request, $this->user);
         }
         return new Response($this->request, $this->user, $this->config);
     }
