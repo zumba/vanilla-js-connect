@@ -109,7 +109,7 @@ class SSO
       }
     }
 
-    public static function createErrorResponse() {
+    public function createErrorResponse() {
       return new ErrorResponse($this->request);
     }
 

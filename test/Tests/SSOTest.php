@@ -53,6 +53,24 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 		}
 
+		public function testCreateErrorResponse() {
+			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$user = $this->getMockBuilder('\Zumba\VanillaJsConnect\User')
+				->disableOriginalConstructor()
+				->getMock();
+
+			$sso = new SSO($request, $user, $config);
+
+			$this->assertInstanceOf('\Zumba\VanillaJsConnect\ErrorResponse', $sso->createErrorResponse());
+		}
+
 		public function testInvalidClientID() {
 			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
 				->disableOriginalConstructor()
