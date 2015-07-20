@@ -322,7 +322,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 		public function testNotAllowedUserRole() {
 			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
-				->setMethods(['getSecret', 'getClientID'])
+				->setMethods(['getSecret', 'getClientID', 'getAllowedRoles'])
 				->disableOriginalConstructor()
 				->getMock();
 
@@ -354,6 +354,10 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 				->method('getSecret')
 				->will($this->returnValue('foobar'));
 
+			$config
+				->method('getAllowedRoles')
+				->will($this->returnValue(['4', 'zin', 'balrog']));
+
 			$user
 				->method('getRoles')
 				->will($this->returnValue(['not', 'allowed']));
@@ -372,7 +376,7 @@ class SSOTest extends \PHPUnit_Framework_TestCase {
 
 		public function testAllowedUserRole() {
 			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
-				->setMethods(['getSecret', 'getClientID'])
+				->setMethods(['getSecret', 'getClientID', 'getAllowedRoles'])
 				->disableOriginalConstructor()
 				->getMock();
 
