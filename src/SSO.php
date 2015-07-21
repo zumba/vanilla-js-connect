@@ -47,6 +47,15 @@ class SSO
         $this->request = $request;
         $this->config = $config;
         $this->user = $user;
+
+        $this->addValidator(new Validator\MissingClientID);
+        $this->addValidator(new Validator\InvalidClientID);
+        $this->addValidator(new Validator\UnsignedRequest);
+        $this->addValidator(new Validator\InvalidTimestamp);
+        $this->addValidator(new Validator\MissingSignature);
+        $this->addValidator(new Validator\ExpiredTimestamp);
+        $this->addValidator(new Validator\InvalidSignature);
+
     }
 
     /**
@@ -54,11 +63,11 @@ class SSO
      *
      * @param function
      */
-    public function addCustomValidator($validator)
+    public function addValidator($validator)
     {
         if(is_callable($validator)) {
           $this->validators[] = new Validator\Closure($validator);
-        } elseif ($validator instanceof $Validator) {
+        } elseif ($validator instanceof ValidatorInterface) {
           $this->validators[] = $validator;
         }
     }
@@ -72,7 +81,7 @@ class SSO
     {
 
       foreach ($this->validators as $validator) {
-        $result = $validator($this->request, $this->config, $this->user);
+        $result = $validator->validate($this->request, $this->user, $this->config);
           if (is_object($result) && $result instanceof Response) {
             return $result;
           }

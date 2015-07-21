@@ -2,7 +2,8 @@
 
 namespace Zumba\VanillaJsConnect\Validator;
 
-use Zumba\VanillaJsConnect\Response as Response;
+use Zumba\VanillaJsConnect\Response as Response,
+    Zumba\VanillaJsConnect as Vanilla;
 
 class ExpiredTimestamp implements \Zumba\VanillaJsConnect\ValidatorInterface {
 
@@ -16,7 +17,7 @@ class ExpiredTimestamp implements \Zumba\VanillaJsConnect\ValidatorInterface {
       return time();
   }
 
-  public function validator($request, $config) {
+  public function validate(Vanilla\Request $request, Vanilla\User $user = null, Vanilla\Config $config = null) {
     if (($this->getTime() - $request->getTimestamp()) > $config->getJsTimeout()) {
         return new Response\ExpiredTimestamp($request);
     }

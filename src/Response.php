@@ -53,7 +53,7 @@ class Response
      */
     protected function toArray()
     {
-        if ($this instanceof ErrorResponse) {
+        if (property_exists($this, 'error')) {
             return ['error' => $this->error, 'message' => $this->message];
         } else {
             return $this->signJsConnect();
