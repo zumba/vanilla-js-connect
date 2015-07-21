@@ -2,7 +2,7 @@
 
 namespace Zumba\VanillaJsConnect;
 
-use Zumba\VanillaJsConnect\ErrorResponse as ErrorResponse;
+use \Zumba\VanillaJsConnect\Validator as Validator;
 
 class SSO
 {
@@ -48,82 +48,19 @@ class SSO
         $this->config = $config;
         $this->user = $user;
     }
-    /**
-     * Checks if the request client id is equal to the config client id
-     *
-     * @return boolean
-     */
-    protected function isInvalidClientID()
-    {
-        return $this->request->getClientID() !== $this->config->getClientID();
-    }
-
-    /**
-     * Checks that the request timestamp and signature are set
-     *
-     * @return boolean
-     */
-    protected function isUnsigned()
-    {
-        $requestTimestamp = $this->request->getTimestamp();
-        $requestSignature = $this->request->getSignature();
-
-        return !isset($requestTimestamp) && !isset($requestSignature);
-    }
-
-    /**
-     * Signature is valid if the request and new hash are equal
-     *
-     * @return boolean
-     */
-    protected function isSignatureValid()
-    {
-        $timestamp = $this->request->getTimestamp();
-        $secret = $this->config->getSecret();
-        $signature = md5($timestamp.$secret);
-        return $this->request->getSignature() === $signature;
-    }
-
-    /**
-     * Returns current time. Used for mocking
-     *
-     * @return time
-     */
-    protected function getTime()
-    {
-        return time();
-    }
-
-
-    /**
-     * Loops through array of validator callbacks
-     *
-     * @return ErrorResponse
-     */
-    protected function handleValidators()
-    {
-        foreach ($this->validators as $validateFn) {
-            ;
-            $response = $validateFn();
-            if ($response instanceof ErrorResponse) {
-                return $response;
-            }
-        }
-    }
-
-    public function createErrorResponse()
-    {
-        return new ErrorResponse($this->request);
-    }
 
     /**
      * Adds custom external validation functions to run in addition to the Vanilla core
      *
      * @param function
      */
-    public function addCustomValidator($fn)
+    public function addCustomValidator($validator)
     {
-        $this->validators[] = $fn;
+        if(is_callable($validator)) {
+          $this->validators[] = new Validator\Closure($validator);
+        } elseif ($validator instanceof $Validator) {
+          $this->validators[] = $validator;
+        }
     }
 
     /**
@@ -134,37 +71,13 @@ class SSO
     public function getResponse()
     {
 
-        if (empty($this->request->getClientID())) {
-            return new ErrorResponse\ClientIDMissing($this->request);
-        }
-        if ($this->isInvalidClientID()) {
-            $clientID = $this->request->getClientID();
-            $clientResponse =  new ErrorResponse\InvalidClient($this->request);
-            $clientResponse->setClientID($clientID);
-            return $clientResponse;
-        }
-        if ($this->isUnsigned()) {
-            return new ErrorResponse\Unsigned($this->request, $this->user);
-        }
-        if (!is_numeric($this->request->getTimestamp())) {
-            return new ErrorResponse\InvalidOrMissingTimeStamp($this->request);
-        }
-        if (empty($this->request->getSignature())) {
-            return new ErrorResponse\MissingSignature($this->request);
-        }
-        if (($this->getTime() - $this->request->getTimestamp()) > $this->config->getJsTimeout()) {
-            return new ErrorResponse\InvalidTimeStamp($this->request);
-        }
-        if (!$this->isSignatureValid()) {
-            return new ErrorResponse\AccessDenied($this->request);
-        }
+      foreach ($this->validators as $validator) {
+        $response = $validator($this->request, $this->config, $this->user);
+          if ($response instanceof Response) {
+            return $response;
+          }
+      }
 
-        $customError = $this->handleValidators();
-
-        if (isset($customError)) {
-            return $customError;
-        }
-
-        return new Response($this->request, $this->user, $this->config);
+      return new Response($this->request, $this->user, $this->config);
     }
 }
