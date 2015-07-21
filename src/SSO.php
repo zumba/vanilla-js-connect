@@ -72,9 +72,9 @@ class SSO
     {
 
       foreach ($this->validators as $validator) {
-        $response = $validator($this->request, $this->config, $this->user);
-          if ($response instanceof Response) {
-            return $response;
+        $result = $validator($this->request, $this->config, $this->user);
+          if (is_object($result) && $result instanceof Response) {
+            return $result;
           }
       }
 
