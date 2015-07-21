@@ -8,7 +8,7 @@ class MissingClientID extends \Zumba\VanillaJsConnect\ValidatorInterface {
 
   public function validator ($request) {
     if (empty($request->getClientID())) {
-        return new Response\ClientID($request);
+        return new Response\MissingClientID($request);
     }
   }
 

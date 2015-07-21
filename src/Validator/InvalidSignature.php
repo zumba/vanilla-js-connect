@@ -9,7 +9,7 @@ class InvalidSignature implements \Zumba\VanillaJsConnect\ValidatorInterface {
   public function validator($request, $config) {
     $signature = md5($request->getTimestamp().$config->getSecret());
     if($request->getSignature() === $signature) {
-      return new Response\AccessDenied($request);
+      return new Response\InvalidSignature($request);
     }
   }
 
