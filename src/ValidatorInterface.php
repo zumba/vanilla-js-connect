@@ -10,7 +10,7 @@ interface ValidatorInterface
      * @param  Request $request
      * @param  User  $user
      * @param  Config  $config
-     * @return Response           
+     * @return Response
      */
     public function validate(Request $request, User $user = null, Config $config = null);
 }
