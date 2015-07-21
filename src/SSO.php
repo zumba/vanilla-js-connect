@@ -65,10 +65,10 @@ class SSO
      */
     public function addValidator($validator)
     {
-        if(is_callable($validator)) {
-          $this->validators[] = new Validator\Closure($validator);
+        if (is_callable($validator)) {
+            $this->validators[] = new Validator\Closure($validator);
         } elseif ($validator instanceof ValidatorInterface) {
-          $this->validators[] = $validator;
+            $this->validators[] = $validator;
         }
     }
 
@@ -80,13 +80,13 @@ class SSO
     public function getResponse()
     {
 
-      foreach ($this->validators as $validator) {
-        $result = $validator->validate($this->request, $this->user, $this->config);
-          if (is_object($result) && $result instanceof Response) {
-            return $result;
-          }
-      }
+        foreach ($this->validators as $validator) {
+            $result = $validator->validate($this->request, $this->user, $this->config);
+            if (is_object($result) && $result instanceof Response) {
+                return $result;
+            }
+        }
 
-      return new Response($this->request, $this->user, $this->config);
+        return new Response($this->request, $this->user, $this->config);
     }
 }

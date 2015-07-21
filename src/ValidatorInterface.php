@@ -2,8 +2,8 @@
 
 namespace Zumba\VanillaJsConnect;
 
-interface ValidatorInterface {
+interface ValidatorInterface
+{
 
-  public function validate(Request $request, User $user = null, Config $config = null);
-
+    public function validate(Request $request, User $user = null, Config $config = null);
 }
