@@ -71,7 +71,7 @@ class SSO
         } elseif (is_object($validator) && $validator instanceof ValidatorInterface) {
             $this->validators[] = $validator;
         } else {
-          throw new \InvalidArgumentException("Not a function or ValidatorInterface object");
+            throw new \InvalidArgumentException("Not a function or ValidatorInterface object");
         }
     }
 

@@ -13,7 +13,7 @@ class UnsignedRequest implements \Zumba\VanillaJsConnect\ValidatorInterface
         $requestTimestamp = $request->getTimestamp();
         $requestSignature = $request->getSignature();
 
-        if (!isset($requestTimestamp) && !isset($requestSignature)) {
+        if (empty($requestTimestamp) && empty($requestSignature)) {
             return new Response\UnsignedRequest($request, $user);
         }
     }
