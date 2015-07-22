@@ -5,7 +5,7 @@ namespace Zumba\VanillaJsConnect\Validator;
 use Zumba\VanillaJsConnect\Response as Response;
 use Zumba\VanillaJsConnect as Vanilla;
 
-class Closure implements \Zumba\VanillaJsConnect\ValidatorInterface
+class Closure implements Vanilla\ValidatorInterface
 {
 
     protected $validator;
@@ -17,6 +17,7 @@ class Closure implements \Zumba\VanillaJsConnect\ValidatorInterface
 
     public function validate(Vanilla\Request $request, Vanilla\User $user = null, Vanilla\Config $config = null)
     {
-        return call_user_func($this->validator, $request, $user, $config);
+        $validator = $this->validator;
+        return $validator($request, $user, $config);
     }
 }

@@ -62,13 +62,16 @@ class SSO
      * Adds custom external validation functions to run in addition to the Vanilla core
      *
      * @param function
+     * @throws \InvalidArgumentException
      */
     public function addValidator($validator)
     {
         if (is_callable($validator)) {
             $this->validators[] = new Validator\Closure($validator);
-        } elseif ($validator instanceof ValidatorInterface) {
+        } elseif (is_object($validator) && $validator instanceof ValidatorInterface) {
             $this->validators[] = $validator;
+        } else {
+          throw new \InvalidArgumentException("Not a function or ValidatorInterface object");
         }
     }
 
