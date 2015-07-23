@@ -1,8 +1,12 @@
 <?php
 
-namespace Zumba\VanillaJsConnect;
+namespace Zumba\VanillaJsConnect\Response;
 
-class UnsignedResponse extends Response
+use Zumba\VanillaJsConnect\Request;
+use Zumba\VanillaJsConnect\User;
+use Zumba\VanillaJsConnect\Config;
+
+class UnsignedRequest extends \Zumba\VanillaJsConnect\Response
 {
     /**
      * Stores the usersname

@@ -5,11 +5,8 @@ namespace Tests;
 use \Zumba\VanillaJsConnect\SSO,
 		\Zumba\VanillaJsConnect\Config,
 		\Zumba\VanillaJsConnect\Request,
-		\Zumba\VanillaJsConnect\Response,
-		\Zumba\VanillaJsConnect\User,
-		\Zumba\VanillaJsConnect\AccessDeniedResponse,
-		\Zumba\VanillaJsConnect\UnsignedResponse,
-		\Zumba\VanillaJsConnect\InvalidClientResponse;
+		\Zumba\VanillaJsConnect\Response as Response,
+		\Zumba\VanillaJsConnect\User;
 
 class ResponseTests extends \PHPUnit_Framework_TestCase {
 
@@ -27,7 +24,7 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 				'message' => 'Signature invalid.'
 		]);
 
-		$errorResponse = new AccessDeniedResponse($request);
+		$errorResponse = new Response\InvalidSignature($request);
 
 		$this->assertEquals($expectedResult, (string)$errorResponse);
 	}
@@ -55,7 +52,7 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 				'signedin' => true
 		]);
 
-		$errorResponse = new UnsignedResponse($request, $user);
+		$errorResponse = new Response\UnsignedRequest($request, $user);
 		$this->assertEquals($expectedResult, (string)$errorResponse);
 	}
 
@@ -81,7 +78,7 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 				'photourl' => ''
 		]);
 
-		$errorResponse = new UnsignedResponse($request, $user);
+		$errorResponse = new Response\UnsignedRequest($request, $user);
 
 		$this->assertEquals($expectedResult, (string)$errorResponse);
 	}
@@ -97,7 +94,7 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 				'message' => 'Unknown client Agent Smith.'
 		]);
 
-		$errorResponse = new InvalidClientResponse($request);
+		$errorResponse = new Response\InvalidClientID($request);
 		$errorResponse->setClientID('Agent Smith');
 
 		$this->assertEquals($expectedResult, (string)$errorResponse);

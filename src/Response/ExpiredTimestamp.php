@@ -1,8 +1,8 @@
 <?php
 
-namespace Zumba\VanillaJsConnect;
+namespace Zumba\VanillaJsConnect\Response;
 
-class InvalidOrMissingTimeStampResponse extends Response
+class ExpiredTimestamp extends \Zumba\VanillaJsConnect\Response
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray
@@ -10,10 +10,11 @@ class InvalidOrMissingTimeStampResponse extends Response
      * @var string
      */
     protected $error = 'invalid_request';
+
     /**
-     * Error Message
+     * Error message
      *
      * @var string
      */
-    protected $message = 'The timestamp parameter is missing or invalid.';
+    protected $message = 'The timestamp is invalid.';
 }

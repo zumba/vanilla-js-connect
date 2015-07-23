@@ -1,8 +1,8 @@
 <?php
 
-namespace Zumba\VanillaJsConnect;
+namespace Zumba\VanillaJsConnect\Response;
 
-class InvalidClientResponse extends Response
+class InvalidClientID extends \Zumba\VanillaJsConnect\Response
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray

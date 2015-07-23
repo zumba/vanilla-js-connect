@@ -1,8 +1,8 @@
 <?php
 
-namespace Zumba\VanillaJsConnect;
+namespace Zumba\VanillaJsConnect\Response;
 
-class MissingSignatureResponse extends Response
+class MissingSignature extends \Zumba\VanillaJsConnect\Response
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray
