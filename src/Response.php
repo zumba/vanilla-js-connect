@@ -93,7 +93,7 @@ class Response
      */
     public function __toString()
     {
-        if ($this instanceof ErrorResponse) {
+        if (get_class($this) !== "Zumba\VanillaJsConnect\Response") {
             return json_encode($this->toArray());
         }
         $resultArray = array_merge($this->toArray(), $this->properties);

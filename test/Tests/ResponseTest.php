@@ -159,14 +159,14 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 			->will($this->returnValue('Bar007'));
 
 		$response = new Response($request, $user, $config);
-		$response->addProperties(['test' => 'poop', 'cake' => 'lie']);
+		$response->addProperties(['test' => 'more', 'cake' => 'lie']);
 
 		$expectedResult = json_encode([
 				'name' => 'Foo',
 				'photourl' => 'imgur',
 				'client_id' => 'Bar007',
 				'signature' => 'd8174f110c2e4cb0811099b4a9ce819e',
-				'test' => 'poop',
+				'test' => 'more',
 				'cake' => 'lie'
 		]);
 
