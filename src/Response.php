@@ -77,6 +77,15 @@ class Response
     }
 
     /**
+     * Only the 'valid' response should send added properties
+     *
+     * @return string
+     */
+    protected function encodeResponse() {
+      return json_encode(array_merge($this->toArray(), $this->properties));
+    }
+
+    /**
      * Saves an array that will be merged with the User object array
      *
      * @param  array $props
@@ -86,6 +95,7 @@ class Response
     {
         $this->properties = array_merge($this->properties, $props);
     }
+
     /**
      * Allows response to be type cast into a string when handling
      *
@@ -93,11 +103,8 @@ class Response
      */
     public function __toString()
     {
-        if (get_class($this) !== "Zumba\VanillaJsConnect\Response") {
-            return json_encode($this->toArray());
-        }
-        $resultArray = array_merge($this->toArray(), $this->properties);
-        $resultJSON = json_encode($resultArray);
+        $resultJSON = $this->encodeResponse();
+
         $callback = $this->request->getCallback();
         if (!empty($callback)) {
             return "$callback($resultJSON)";
