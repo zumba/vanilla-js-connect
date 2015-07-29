@@ -81,8 +81,9 @@ class Response
      *
      * @return string
      */
-    protected function encodeResponse() {
-      return json_encode(array_merge($this->toArray(), $this->properties));
+    protected function encodeResponse()
+    {
+        return json_encode(array_merge($this->toArray(), $this->properties));
     }
 
     /**
