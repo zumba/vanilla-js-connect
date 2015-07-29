@@ -26,6 +26,16 @@ class InvalidClientID extends \Zumba\VanillaJsConnect\Response
     protected $message = "Unknown client %s.";
 
     /**
+     * 'Error' responses do not return added properties
+     *
+     * @return string
+     */
+    protected function encodeResponse()
+    {
+        return json_encode($this->toArray());
+    }
+
+    /**
      * Sets the client id for toArray
      *
      * @param  string $clientID
