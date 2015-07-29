@@ -75,4 +75,14 @@ class UnsignedRequest extends \Zumba\VanillaJsConnect\Response
         }
 
     }
+
+    /**
+     * 'Error' responses do not return added properties
+     *
+     * @return string
+     */
+    protected function encodeResponse()
+    {
+        return json_encode($this->toArray());
+    }
 }

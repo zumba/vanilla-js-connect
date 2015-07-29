@@ -17,4 +17,14 @@ class MissingSignature extends \Zumba\VanillaJsConnect\Response
      * @var string
      */
     protected $message = 'Missing  signature parameter.';
+
+    /**
+     * 'Error' responses do not return added properties
+     *
+     * @return string
+     */
+    protected function encodeResponse()
+    {
+        return json_encode($this->toArray());
+    }
 }
