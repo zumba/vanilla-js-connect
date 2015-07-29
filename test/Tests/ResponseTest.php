@@ -173,6 +173,44 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expectedResult, (string)$response);
 	}
 
+	public function testAddPropertiesWithError() {
+		$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
+			->disableOriginalConstructor()
+			->getMock();
+		$user = $this->getMockBuilder('\Zumba\VanillaJsConnect\User')
+			->disableOriginalConstructor()
+			->getMock();
+		$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$user
+			->method('getName')
+			->will($this->returnValue(''));
+
+		$user
+			->method('getPhotoUrl')
+			->will($this->returnValue(''));
+
+		$config
+			->method('getSecret')
+			->will($this->returnValue('cake'));
+
+		$config
+			->method('getClientID')
+			->will($this->returnValue('Bar007'));
+
+		$response = new Response\UnsignedRequest($request, $user, $config);
+		$response->addProperties(['test' => 'more', 'cake' => 'lie']);
+
+		$expectedResult = json_encode([
+				'name' => '',
+				'photourl' => '',
+		]);
+
+		$this->assertEquals($expectedResult, (string)$response);
+	}
+
 	public function testCallback() {
 		$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
 			->disableOriginalConstructor()
