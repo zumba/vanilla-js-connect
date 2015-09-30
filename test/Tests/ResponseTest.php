@@ -161,13 +161,21 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 		$response = new Response($request, $user, $config);
 		$response->addProperties(['test' => 'more', 'cake' => 'lie']);
 
+		$queryArray = [
+			'cake' => 'lie',
+			'name' => 'Foo',
+			'photourl' => 'imgur',
+			'test' => 'more'
+		];
+
+		$signature = md5(http_build_query($queryArray, NULL, '&').'cake');
 		$expectedResult = json_encode([
+				'cake' => 'lie',
 				'name' => 'Foo',
 				'photourl' => 'imgur',
-				'client_id' => 'Bar007',
-				'signature' => 'd8174f110c2e4cb0811099b4a9ce819e',
 				'test' => 'more',
-				'cake' => 'lie'
+				'client_id' => 'Bar007',
+				'signature' => $signature,
 		]);
 
 		$this->assertEquals($expectedResult, (string)$response);
