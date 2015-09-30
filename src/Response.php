@@ -67,12 +67,13 @@ class Response
    */
     protected function signJsConnect()
     {
-        $userArray = $this->user->toArray();
-        $queryString = http_build_query($userArray, null, '&');
+        $queryArray = array_merge($this->user->toArray(), $this->properties);
+        ksort($queryArray);
+        $queryString = http_build_query($queryArray, null, '&');
         $signature = md5($queryString.$this->config->getSecret());
-        $userArray['client_id'] = $this->config->getClientID();
-        $userArray['signature'] = $signature;
-        return $userArray;
+        $queryArray['client_id'] = $this->config->getClientID();
+        $queryArray['signature'] = $signature;
+        return $queryArray;
 
     }
 
@@ -83,7 +84,7 @@ class Response
      */
     protected function encodeResponse()
     {
-        return json_encode(array_merge($this->toArray(), $this->properties));
+        return json_encode($this->toArray());
     }
 
     /**
