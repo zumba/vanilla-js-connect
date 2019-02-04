@@ -8,7 +8,7 @@ use \Zumba\VanillaJsConnect\SSO,
 		\Zumba\VanillaJsConnect\Response as Response,
 		\Zumba\VanillaJsConnect\User;
 
-class ResponseTests extends \PHPUnit_Framework_TestCase {
+class ResponseTests extends \PHPUnit\Framework\TestCase {
 
   /**
    * Test case toArray is called on an error response

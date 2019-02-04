@@ -4,7 +4,7 @@ namespace Tests;
 
 use \Zumba\VanillaJsConnect\Config;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase {
+class ConfigTest extends \PHPUnit\Framework\TestCase {
 
 		/**
 		* @expectedException \LogicException
@@ -18,14 +18,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		 * @dataProvider expectedKeysProvider
 		 */
 		public function testArrayContainsExpectedKeys(array $options, $expectedException) {
-			$this->setExpectedException($expectedException);
+			$this->expectException($expectedException);
 			$config = new Config($options);
 		}
 
 		public function expectedKeysProvider() {
 			return [
-				'missingClientID' => [['secret' => 1234], 'DomainException'],
-				'missingSecret' => [['clientID' => 1234], 'DomainException']
+				'missingClientID' => [['secret' => 1234], \DomainException::class],
+				'missingSecret' => [['clientID' => 1234], \DomainException::class]
 			];
 		}
 
