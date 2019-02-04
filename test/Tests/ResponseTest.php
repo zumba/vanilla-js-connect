@@ -8,7 +8,7 @@ use \Zumba\VanillaJsConnect\SSO,
 		\Zumba\VanillaJsConnect\Response as Response,
 		\Zumba\VanillaJsConnect\User;
 
-class ResponseTests extends \PHPUnit_Framework_TestCase {
+class ResponseTests extends \PHPUnit\Framework\TestCase {
 
   /**
    * Test case toArray is called on an error response
@@ -254,6 +254,47 @@ class ResponseTests extends \PHPUnit_Framework_TestCase {
 				'photourl' => 'imgur',
 				'client_id' => 'Bar007',
 				'signature' => 'd8174f110c2e4cb0811099b4a9ce819e'
+				]).
+			")";
+
+		$this->assertEquals($expectedResult, (string)$response);
+	}
+
+    public function testCallbackXSS() {
+		$request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
+			->disableOriginalConstructor()
+			->getMock();
+		$user = $this->getMockBuilder('\Zumba\VanillaJsConnect\User')
+			->disableOriginalConstructor()
+			->getMock();
+		$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$request
+			->method('getCallback')
+			->will($this->returnValue('Promise'));
+
+		$user
+			->method('toArray')
+			->will($this->returnValue(['name' => 'Foo', 'photourl' => '</script><script>doSomethingEvil()</script>']));
+
+		$config
+			->method('getSecret')
+			->will($this->returnValue('cake'));
+
+		$config
+			->method('getClientID')
+			->will($this->returnValue('Bar007'));
+
+		$response = new Response($request, $user, $config);
+
+		$expectedResult = "Promise(".
+			json_encode([
+				'name' => 'Foo',
+				'photourl' => '&lt;/script&gt;&lt;script&gt;doSomethingEvil()&lt;/script&gt;',
+				'client_id' => 'Bar007',
+				'signature' => '7687b5439495d371feff3dc39587c661'
 				]).
 			")";
 

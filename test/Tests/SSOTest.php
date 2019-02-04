@@ -9,7 +9,7 @@ use \Zumba\VanillaJsConnect\SSO,
 		\Zumba\VanillaJsConnect\User,
 		\Zumba\VanillaJsConnect\Response;
 
-class SSOTest extends \PHPUnit_Framework_TestCase {
+class SSOTest extends \PHPUnit\Framework\TestCase {
 
 		public function testGetResponse() {
 			$config = $this->getMockBuilder('\Zumba\VanillaJsConnect\Config')

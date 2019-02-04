@@ -109,7 +109,7 @@ class Response
 
         $callback = $this->request->getCallback();
         if (!empty($callback)) {
-            return "$callback($resultJSON)";
+            return htmlspecialchars("$callback($resultJSON)", \ENT_NOQUOTES, "UTF-8");
         } else {
             return $resultJSON;
         }
