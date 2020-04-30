@@ -2,12 +2,14 @@
 
 namespace Zumba\VanillaJsConnect;
 
-class User
+use Zumba\VanillaJsConnect\Contracts\VanillaUser;
+
+class User implements VanillaUser
 {
     /**
-     * Holds the username
+     * Returns the name
      *
-     * @var string
+     * @return string
      */
     protected $name = '';
 
@@ -17,12 +19,6 @@ class User
      * @var string
      */
     protected $photoUrl = '';
-
-    /**
-     * Returns the name
-     *
-     * @return string
-     */
 
     /**
     * Unique identifier
@@ -38,6 +34,11 @@ class User
      */
     protected $email = '';
 
+    /**
+     * Constructor
+     *
+     * @param array $args
+     */
     public function __construct(array $args)
     {
         foreach (['name', 'photoUrl', 'uniqueId', 'email'] as $attr) {
@@ -48,13 +49,33 @@ class User
     }
 
     /**
+     * Get user unique identifier
+     *
+     * @return string
+     */
+    public function getUid() : string
+    {
+        return $this->uniqueId;
+    }
+
+    /**
      * Returns the user's name
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
+    }
+
+    /**
+     * Get the email
+     *
+     * @return string
+     */
+    public function getEmail() : string
+    {
+        return $this->email;
     }
 
     /**
@@ -62,22 +83,23 @@ class User
      *
      * @return string
      */
-    public function getPhotoUrl()
+    public function getPhotoUrl() : string
     {
         return $this->photoUrl;
     }
+
     /**
-     * Overrwites parent method
+     * Overrwites parent method. Get's the user information needed. Conside using \Zumba\VanillaJsConnect\Contracts\VanillaUser instead.
      *
      * @return array
      */
     public function toArray()
     {
         return [
-        'email' => $this->email,
-        'name' => $this->name,
-        'photourl' => $this->photoUrl,
-        'uniqueid' => $this->uniqueId
+            'email' => $this->email,
+            'name' => $this->name,
+            'photourl' => $this->photoUrl,
+            'uniqueid' => $this->uniqueId
         ];
     }
 }
