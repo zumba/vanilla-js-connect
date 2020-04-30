@@ -2,7 +2,10 @@
 
 namespace Zumba\VanillaJsConnect\Response;
 
-class InvalidClientID extends \Zumba\VanillaJsConnect\Response
+use Zumba\VanillaJsConnect\Contracts\ErrorResponseInterface;
+use Zumba\VanillaJsConnect\Response;
+
+class InvalidClientID extends Response implements ErrorResponseInterface
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray
@@ -26,16 +29,6 @@ class InvalidClientID extends \Zumba\VanillaJsConnect\Response
     protected $message = "Unknown client %s.";
 
     /**
-     * 'Error' responses do not return added properties
-     *
-     * @return string
-     */
-    protected function encodeResponse()
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
      * Sets the client id for toArray
      *
      * @param  string $clientID
@@ -47,14 +40,15 @@ class InvalidClientID extends \Zumba\VanillaJsConnect\Response
     }
 
     /**
-     * Overrides parent toArray function to include client id
+     * Response data being returned when and error occurred
      *
      * @return array
      */
-    protected function toArray()
+    public function responseData() : array
     {
-        $message = sprintf($this->message, $this->clientID);
-        $error = $this->error;
-        return compact('error', 'message');
+        return [
+            'error' => $this->error,
+            'message' => sprintf($this->message, $this->clientID),
+        ];
     }
 }

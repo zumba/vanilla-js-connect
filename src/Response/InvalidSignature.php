@@ -2,7 +2,10 @@
 
 namespace Zumba\VanillaJsConnect\Response;
 
-class InvalidSignature extends \Zumba\VanillaJsConnect\Response
+use Zumba\VanillaJsConnect\Contracts\ErrorResponseInterface;
+use Zumba\VanillaJsConnect\Response;
+
+class InvalidSignature extends Response implements ErrorResponseInterface
 {
     /**
      * Holds the error type. Corresponds with the array key in toArray
@@ -19,12 +22,15 @@ class InvalidSignature extends \Zumba\VanillaJsConnect\Response
     protected $message = 'Signature invalid.';
 
     /**
-     * 'Error' responses do not return added properties
+     * Response data being returned when and error occurred
      *
-     * @return string
+     * @return array
      */
-    protected function encodeResponse()
+    public function responseData() : array
     {
-        return json_encode($this->toArray());
+        return [
+            'error' => $this->error,
+            'message' => $this->message,
+        ];
     }
 }

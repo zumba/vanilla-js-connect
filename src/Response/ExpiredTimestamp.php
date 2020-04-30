@@ -2,7 +2,10 @@
 
 namespace Zumba\VanillaJsConnect\Response;
 
-class ExpiredTimestamp extends \Zumba\VanillaJsConnect\Response
+use Zumba\VanillaJsConnect\Contracts\ErrorResponseInterface;
+use Zumba\VanillaJsConnect\Response;
+
+class ExpiredTimestamp extends Response implements ErrorResponseInterface
 {
     /**
      *  Holds the error type. Corresponds with the array key in toArray
@@ -16,15 +19,18 @@ class ExpiredTimestamp extends \Zumba\VanillaJsConnect\Response
      *
      * @var string
      */
-    protected $message = 'The timestamp is invalid.';
+    protected $message = 'The timestamp has expired.';
 
     /**
-     * 'Error' responses do not return added properties
+     * Response data being returned when and error occurred
      *
-     * @return string
+     * @return array
      */
-    protected function encodeResponse()
+    public function responseData() : array
     {
-        return json_encode($this->toArray());
+        return [
+            'error' => $this->error,
+            'message' => $this->message,
+        ];
     }
 }
