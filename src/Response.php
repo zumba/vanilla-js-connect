@@ -164,6 +164,19 @@ class Response
     }
 
     /**
+     * Generates the URL required for Vanilla forums to authenticate the user.
+     *
+     * @return string
+     */
+    public function getRedirectUrl() : string
+    {
+        $decodedToken = $this->decodeToken($this->request->getToken());
+        $signedToken = $this->encodeResponse();
+
+        return $decodedToken[static::FIELD_REDIRECT_URL] . '#' . http_build_query(['jwt' => $signedToken]);
+    }
+
+    /**
      * Allows response to be type cast into a string when handling
      *
      * @return string
@@ -176,10 +189,7 @@ class Response
         if ($this instanceof ErrorResponseInterface) {
             return json_encode($this->responseData());
         } else {
-            $decodedToken = $this->decodeToken($this->request->getToken());
-            $signedToken = $this->encodeResponse();
-
-            return $decodedToken[static::FIELD_REDIRECT_URL] . '#' . http_build_query(['jwt' => $signedToken]);
+            return $this->getRedirectUrl();
         }
     }
 
