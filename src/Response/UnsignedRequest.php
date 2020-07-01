@@ -3,11 +3,12 @@
 namespace Zumba\VanillaJsConnect\Response;
 
 use Zumba\VanillaJsConnect\Config;
+use Zumba\VanillaJsConnect\Contracts\ErrorResponseInterface;
 use Zumba\VanillaJsConnect\Contracts\VanillaUser;
 use Zumba\VanillaJsConnect\Request;
 use Zumba\VanillaJsConnect\Response;
 
-class UnsignedRequest extends Response
+class UnsignedRequest extends Response implements ErrorResponseInterface
 {
     /**
      * Boolean whether the user is signed in
@@ -36,5 +37,15 @@ class UnsignedRequest extends Response
     private function isSignedIn()
     {
         return !empty($this->user) && !empty($this->user->getUid());
+    }
+
+    /**
+     * Response data being returned when unsigned
+     *
+     * @return array
+     */
+    public function responseData() : array
+    {
+        return $this->getUserInfo();
     }
 }

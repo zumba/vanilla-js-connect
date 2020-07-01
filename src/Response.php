@@ -44,7 +44,7 @@ class Response
     protected $user;
 
     /**
-     * Additonal properties to be added to the user object
+     * Additional properties to be added to the user object
      *
      * @var array
      */
@@ -106,7 +106,7 @@ class Response
      *
      * @return string
      */
-    protected function encodeResponse()
+    public function encodeResponse()
     {
         return $this->jwtEncode($this->getUserInfo());
     }
