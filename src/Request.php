@@ -30,5 +30,4 @@ class Request
     {
         return $this->jwt;
     }
-
 }

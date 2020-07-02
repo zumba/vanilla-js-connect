@@ -15,10 +15,8 @@ class InvalidClientID implements ValidatorInterface
         list($tokenHeader) = explode('.', $request->getToken());
         $tokenHeaderData = json_decode(JWT::urlsafeB64Decode($tokenHeader), true);
 
-        if (
-            empty($tokenHeaderData[Response::FIELD_CLIENT_ID]) ||
-            $tokenHeaderData[Response::FIELD_CLIENT_ID] !== $config->getClientID()
-        ) {
+        if (empty($tokenHeaderData[Response::FIELD_CLIENT_ID]) ||
+            $tokenHeaderData[Response::FIELD_CLIENT_ID] !== $config->getClientID()) {
             $clientResponse =  new Response\InvalidClientID($request);
             $clientResponse->setClientID($tokenHeaderData[Response::FIELD_CLIENT_ID] ?? '');
             return $clientResponse;

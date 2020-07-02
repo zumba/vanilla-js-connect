@@ -89,7 +89,8 @@ class User implements VanillaUser
     }
 
     /**
-     * Overrwites parent method. Get's the user information needed. Conside using \Zumba\VanillaJsConnect\Contracts\VanillaUser instead.
+     * Overrwites parent method. Get's the user information needed.
+     * Conside using \Zumba\VanillaJsConnect\Contracts\VanillaUser instead.
      *
      * @return array
      */
