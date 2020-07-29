@@ -5,6 +5,11 @@ namespace Zumba\VanillaJsConnect;
 class Config
 {
     const DEFAULT_JS_TIMEOUT = 1440;
+    const ALG_HS256 = 'HS256';
+
+    const ALLOWED_ALGORITHMS = [
+        'ES256', 'HS256', 'HS384', 'HS512', 'RS256', 'RS384', 'RS512'
+    ];
 
     /**
      * Client ID
@@ -19,6 +24,13 @@ class Config
      * @var string
      */
     protected $secret;
+
+    /**
+     * Algorithm to decode/encode data with Vanilla
+     *
+     * @var string
+     */
+    protected $signAlgorithm;
 
     /**
      * Timeout for session to be valid
@@ -45,6 +57,8 @@ class Config
         if (isset($options['jsTimeout'])) {
             $this->jsTimeout = $options['jsTimeout'];
         }
+
+        $this->signAlgorithm = $options['signAlgorithm'] ?? static::ALG_HS256;
 
         $this->clientID = $options['clientID'];
         $this->secret = $options['secret'];
@@ -78,5 +92,15 @@ class Config
     public function getJsTimeout()
     {
         return $this->jsTimeout ?: static::DEFAULT_JS_TIMEOUT;
+    }
+
+    /**
+     * Returns the hash algorithm used to encode/decode the JWT
+     *
+     * @return string
+     */
+    public function getSignAlgorithm() : string
+    {
+        return $this->signAlgorithm;
     }
 }

@@ -2,18 +2,23 @@
 
 namespace Zumba\VanillaJsConnect\Validator;
 
+use Firebase\JWT\JWT;
 use Zumba\VanillaJsConnect\Response as Response;
 use Zumba\VanillaJsConnect as Vanilla;
+use Zumba\VanillaJsConnect\Contracts\ValidatorInterface;
+use Zumba\VanillaJsConnect\Contracts\VanillaUser;
 
-class InvalidClientID implements \Zumba\VanillaJsConnect\ValidatorInterface
+class InvalidClientID implements ValidatorInterface
 {
-
-    public function validate(Vanilla\Request $request, Vanilla\User $user = null, Vanilla\Config $config = null)
+    public function validate(Vanilla\Request $request, VanillaUser $user = null, Vanilla\Config $config = null)
     {
-        if ($request->getClientID() !== $config->getClientID()) {
-            $clientID = $request->getClientID();
+        list($tokenHeader) = explode('.', $request->getToken());
+        $tokenHeaderData = json_decode(JWT::urlsafeB64Decode($tokenHeader), true);
+
+        if (empty($tokenHeaderData[Response::FIELD_CLIENT_ID]) ||
+            $tokenHeaderData[Response::FIELD_CLIENT_ID] !== $config->getClientID()) {
             $clientResponse =  new Response\InvalidClientID($request);
-            $clientResponse->setClientID($clientID);
+            $clientResponse->setClientID($tokenHeaderData[Response::FIELD_CLIENT_ID] ?? '');
             return $clientResponse;
         }
     }

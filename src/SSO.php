@@ -2,6 +2,9 @@
 
 namespace Zumba\VanillaJsConnect;
 
+use Zumba\VanillaJsConnect\Contracts\ErrorResponseInterface;
+use Zumba\VanillaJsConnect\Contracts\ValidatorInterface;
+use Zumba\VanillaJsConnect\Contracts\VanillaUser;
 use \Zumba\VanillaJsConnect\Validator as Validator;
 
 class SSO
@@ -23,10 +26,9 @@ class SSO
     /**
      * User Object
      *
-     * @var User
+     * @var VanillaUser
      */
     protected $user;
-
 
     /**
      * Array of validation functions for the request
@@ -39,29 +41,23 @@ class SSO
      * Constructor
      *
      * @param Request $request
-     * @param User    $user
-     * @param Config  $config
+     * @param VanillaUser $user
+     * @param Config $config
      */
-    public function __construct(Request $request, User $user, Config $config)
+    public function __construct(Request $request, VanillaUser $user, Config $config)
     {
         $this->request = $request;
         $this->config = $config;
         $this->user = $user;
 
-        $this->addValidator(new Validator\MissingClientID);
         $this->addValidator(new Validator\InvalidClientID);
-        $this->addValidator(new Validator\UnsignedRequest);
-        $this->addValidator(new Validator\InvalidTimestamp);
-        $this->addValidator(new Validator\MissingSignature);
-        $this->addValidator(new Validator\ExpiredTimestamp);
-        $this->addValidator(new Validator\InvalidSignature);
-
+        $this->addValidator(new Validator\InvalidJwt);
     }
 
     /**
      * Adds custom external validation functions to run in addition to the Vanilla core
      *
-     * @param function
+     * @param callable
      * @throws \InvalidArgumentException
      */
     public function addValidator($validator)
@@ -76,16 +72,15 @@ class SSO
     }
 
     /**
-    * Validates Request object and returns a response object based on the error
-    *
-    * @return \Zumba\VanillaJsConnect\Response
-    */
+     * Validates Request object and returns a response object based on the error
+     *
+     * @return \Zumba\VanillaJsConnect\Response
+     */
     public function getResponse()
     {
-
         foreach ($this->validators as $validator) {
             $result = $validator->validate($this->request, $this->user, $this->config);
-            if (is_object($result) && $result instanceof Response) {
+            if (is_object($result) && $result instanceof ErrorResponseInterface) {
                 return $result;
             }
         }
