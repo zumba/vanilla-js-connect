@@ -2,15 +2,15 @@
 
 namespace Tests;
 
-use Firebase\JWT\JWK;
 use Firebase\JWT\JWT;
-use \Zumba\VanillaJsConnect\SSO;
-use \Zumba\VanillaJsConnect\Config;
-use \Zumba\VanillaJsConnect\Request;
-use \Zumba\VanillaJsConnect\Response as Response;
-use \Zumba\VanillaJsConnect\User;
+use LogicException;
+use PHPUnit\Framework\TestCase;
+use Zumba\VanillaJsConnect\Config;
+use Zumba\VanillaJsConnect\Request;
+use Zumba\VanillaJsConnect\Response as Response;
+use Zumba\VanillaJsConnect\User;
 
-class ResponseTest extends \PHPUnit\Framework\TestCase {
+class ResponseTest extends TestCase {
 
     /**
      * Test case toArray is called on an error response
@@ -190,6 +190,24 @@ class ResponseTest extends \PHPUnit\Framework\TestCase {
         ]);
 
         $this->assertEquals($expectedResult, (string)$response);
+    }
+
+    public function testEncodeResponseNoConfig() {
+        $request = new Request('jwt');
+        $response = new Response($request);
+
+        // Should not try to encode response if there is no config
+        $this->expectException(LogicException::class);
+        $response->encodeResponse();
+    }
+
+    public function testGetRedirectUrlNoConfig() {
+        $request = new Request('jwt');
+        $response = new Response($request);
+
+        // Should not try to get redirect url if there is no config
+        $this->expectException(LogicException::class);
+        $response->getRedirectUrl();
     }
 
 }
