@@ -3,6 +3,7 @@
 namespace Zumba\VanillaJsConnect;
 
 use Firebase\JWT\JWT;
+use LogicException;
 use Zumba\VanillaJsConnect\Contracts\ErrorResponseInterface;
 use Zumba\VanillaJsConnect\Contracts\VanillaUser;
 
@@ -116,9 +117,13 @@ class Response
      *
      * @param array $payload
      * @return string
+     * @throws \LogicException
      */
     protected function jwtEncode(array $payload)
     {
+        if (empty($this->config)) {
+            throw new LogicException('Cannot encode jwt without configuration set');
+        }
         // validate and decode the token from request
         $decodedRequest = $this->decodeToken($this->request->getToken());
 
@@ -198,10 +203,14 @@ class Response
      *
      * @param string $requestToken
      * @return array
+     * @throws \LogicException
      */
     protected function decodeToken(string $requestToken) : array
     {
         if (empty(static::$runtimeDecodedToken)) {
+            if (empty($this->config)) {
+                throw new LogicException('Cannot decode token without configuration set');
+            }
             $payload = JWT::decode(
                 $requestToken,
                 $this->config->getSecret(),
