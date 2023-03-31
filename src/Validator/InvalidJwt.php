@@ -3,6 +3,7 @@
 namespace Zumba\VanillaJsConnect\Validator;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Zumba\VanillaJsConnect as Vanilla;
 use Zumba\VanillaJsConnect\Contracts\ValidatorInterface;
 use Zumba\VanillaJsConnect\Contracts\VanillaUser;
@@ -15,8 +16,7 @@ class InvalidJwt implements ValidatorInterface
         try {
             JWT::decode(
                 $request->getToken(),
-                $config->getSecret(),
-                Vanilla\Config::ALLOWED_ALGORITHMS
+                new Key($config->getSecret(), Vanilla\Config::ALG_HS256)
             );
         } catch (\Firebase\JWT\ExpiredException $ex) {
             return new Response\ExpiredTimestamp($request, $user, $config);

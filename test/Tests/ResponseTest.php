@@ -86,7 +86,6 @@ class ResponseTest extends TestCase {
         $this->assertEquals($expectedResult, $decodedPayload);
     }
 
-
     public function testInvalidClientResponse() {
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -146,7 +145,7 @@ class ResponseTest extends TestCase {
     }
 
     public function testAddProperties() {
-        $this->markTestIncomplete('need to be refactored');
+        $this->markTestIncomplete('needs to be refactored');
         $request = $this->getMockBuilder('\Zumba\VanillaJsConnect\Request')
             ->disableOriginalConstructor()
             ->getMock();
