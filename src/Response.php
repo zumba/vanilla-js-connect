@@ -3,6 +3,7 @@
 namespace Zumba\VanillaJsConnect;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use LogicException;
 use Zumba\VanillaJsConnect\Contracts\ErrorResponseInterface;
 use Zumba\VanillaJsConnect\Contracts\VanillaUser;
@@ -213,8 +214,7 @@ class Response
             }
             $payload = JWT::decode(
                 $requestToken,
-                $this->config->getSecret(),
-                Config::ALLOWED_ALGORITHMS
+                new Key($this->config->getSecret(), Config::ALG_HS256)
             );
 
             static::$runtimeDecodedToken = $this->stdClassToArray($payload);

@@ -6,10 +6,8 @@ use \Zumba\VanillaJsConnect\Config;
 
 class ConfigTest extends \PHPUnit\Framework\TestCase {
 
-    /**
-    * @expectedException \LogicException
-    */
     public function testConfigExpectNonEmptyArray() {
+        $this->expectException(\LogicException::class);
         $config = new Config([]);
     }
 
